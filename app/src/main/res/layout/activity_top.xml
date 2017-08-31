@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.reyurnible.android.workrise.presentation.top.TopActivity">
+
+    <com.nshmura.recyclertablayout.RecyclerTabLayout
+        android:id="@+id/tab_layout"
+        rtl_tabBackground="?attr/selectableItemBackground"
+        rtl_tabIndicatorColor="?attr/colorAccent"
+        rtl_tabIndicatorHeight="2dp"
+        rtl_tabMaxWidth="264dp"
+        rtl_tabMinWidth="72dp"
+        rtl_tabPadding="0dp"
+        rtl_tabPaddingBottom="0dp"
+        rtl_tabPaddingEnd="12dp"
+        rtl_tabPaddingStart="12dp"
+        rtl_tabPaddingTop="0dp"
+        rtl_tabSelectedTextColor="?android:textColorPrimary"
+        rtl_tabTextAppearance="@android:style/TextAppearance.Small"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_layout" />
+
+</RelativeLayout>
