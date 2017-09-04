@@ -3,10 +3,16 @@
 buildscript {
     ext {
         // Kotlin
-        kotlin_version = '1.1.4-3'
+        kotlin_version = '1.1.4'
         // Android Support Lib version
         support_library_version = '25.3.1'
         recycler_tablayout_version = '1.5.0'
+        // DI
+        toothpick_version = '1.0.8'
+        // RxJava
+        rx_java_version = '2.0.5'
+        // RxAndroid
+        rx_android_version = '2.0.1'
     }
 
     repositories {
@@ -21,6 +27,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
     }
 }
 
