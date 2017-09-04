@@ -4,6 +4,8 @@ import android.app.Activity
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import io.reyurnible.android.workrise.R
 
 /**
  * Activity Extensions
@@ -59,3 +61,24 @@ fun AppCompatActivity.findFragmentById(@IdRes containerId: Int): Fragment? =
 
 fun AppCompatActivity.findFragmentByTag(tag: String): Fragment? =
         supportFragmentManager.findFragmentByTag(tag)
+
+/**
+ * Modal & Stack
+ */
+fun AppCompatActivity.showAsModal(toolbar: Toolbar) {
+    toolbar.apply {
+        setNavigationIcon(R.drawable.ic_close)
+        setNavigationOnClickListener {
+            finish()
+        }
+    }
+}
+
+fun AppCompatActivity.showAsStack(toolbar: Toolbar) {
+    toolbar.apply {
+        setNavigationIcon(R.drawable.ic_arrow_back)
+        setNavigationOnClickListener {
+            finish()
+        }
+    }
+}

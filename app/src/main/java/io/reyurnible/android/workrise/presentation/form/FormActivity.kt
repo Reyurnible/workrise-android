@@ -1,24 +1,29 @@
 package io.reyurnible.android.workrise.presentation.form
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.presentation.common.setContentFragment
-import java.util.*
+import io.reyurnible.android.workrise.presentation.common.showAsStack
+import io.reyurnible.android.workrise.presentation.common.toDisplay
+import kotlinx.android.synthetic.main.form_activity.*
+import kotlinx.android.synthetic.main.layout_header.*
 
 class FormActivity : AppCompatActivity() {
+    companion object;
 
-    companion object {
-        fun createIntent(context: Context): Intent = Intent(context, FormActivity::class.java)
-    }
+    private val date: YearMonthDay by bindDate()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.form_activity)
-        savedInstanceState ?: setContentFragment(R.id.containerLayout, FormFragment.createInstance(YearMonthDay(Date())))
+        savedInstanceState ?: setContentFragment(R.id.containerLayout, FormFragment.createInstance(date))
+        toolbar.let {
+            setSupportActionBar(it)
+            showAsStack(it)
+            title = date.toDisplay(this)
+        }
     }
 
 }

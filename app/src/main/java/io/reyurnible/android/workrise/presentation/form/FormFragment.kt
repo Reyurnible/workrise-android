@@ -21,25 +21,14 @@ import toothpick.Scope
 import toothpick.Toothpick
 import toothpick.smoothie.module.SmoothieActivityModule
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 /**
  * Form page
  */
 class FormFragment : Fragment() {
-    private object Keys {
-        const val date = "date"
-    }
+    companion object;
 
-    companion object {
-        fun createInstance(date: YearMonthDay): FormFragment = FormFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(Keys.date, date)
-            }
-        }
-    }
-
-    private var date: YearMonthDay by Delegates.notNull()
+    private val date: YearMonthDay by bindDate()
 
     private lateinit var scope: Scope
     @Inject lateinit var presenter: FormPresenter
@@ -48,13 +37,6 @@ class FormFragment : Fragment() {
         super.onAttach(context)
         scope = Toothpick.openScopes(activity.application, this).apply {
             installModules(SmoothieActivityModule(activity))
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.apply {
-            date = getParcelable(Keys.date)
         }
     }
 

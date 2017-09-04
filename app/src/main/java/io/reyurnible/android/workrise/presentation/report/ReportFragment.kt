@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.presentation.form.FormActivity
+import io.reyurnible.android.workrise.presentation.form.createIntent
 import kotlinx.android.synthetic.main.report_fragment.*
 import kotlin.properties.Delegates
 
@@ -42,7 +43,7 @@ class ReportFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createButton.setOnClickListener {
-            startActivity(FormActivity.createIntent(activity))
+            startActivity(FormActivity.createIntent(activity, date))
         }
     }
 
