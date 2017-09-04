@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Theme -->
-    <color name="colorPrimary">#324E7B</color>
-    <color name="colorPrimaryLight">#86A6DF</color>
-    <color name="colorPrimaryDark">#5068A9</color>
-    <color name="colorAccent">@color/colorPrimaryLight</color>
+    <color name="theme_primary">#324E7B</color>
+    <color name="theme_primary_light">#86A6DF</color>
+    <color name="theme_primary_dark">#5068A9</color>
+    <color name="theme_accent">@color/theme_primary_light</color>
     <!-- Text -->
-    <color name="primary_text_dark">#212121</color>
-    <color name="primary_text_light">#F8F8F8</color>
+    <color name="text_primary_dark">#212121</color>
+    <color name="text_primary_light">#F8F8F8</color>
+    <!-- Backgrounds -->
+    <color name="background_light">@android:color/white</color>
+    <color name="background_dark">@color/theme_primary</color>
 </resources>
