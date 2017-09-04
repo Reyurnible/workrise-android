@@ -1,9 +1,17 @@
 package io.reyurnible.android.workrise.presentation.top
 
-/**
- * Created by shunhosaka on 2017/08/31.
- */
+import io.reactivex.disposables.CompositeDisposable
+
 class TopPresenter {
+    private val disposable: CompositeDisposable = CompositeDisposable()
+
+    fun initialize() {
+
+    }
+
+    fun release() {
+        disposable.clear()
+    }
 
     interface TopView {
 
