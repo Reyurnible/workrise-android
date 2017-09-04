@@ -27,7 +27,6 @@ class EditableCheckBox : RelativeLayout, Checkable {
             }
         }
 
-
     private var checked: Boolean = false
 
     @JvmOverloads
@@ -38,13 +37,9 @@ class EditableCheckBox : RelativeLayout, Checkable {
 
     init {
         inflate(context, R.layout.view_editable_checkbox, this)
-    }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
         isChecked = false
         checkButton.setOnClickListener {
-
+            toggle()
         }
     }
 
