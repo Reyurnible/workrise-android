@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="editable_checkbox_background_inset_left">40dp</dimen>
+</resources>
