@@ -65,7 +65,7 @@ class FormFragment : Fragment() {
         editorActionListener = this@FormFragment::actionCheckableEditText
     }
 
-    fun actionCheckableEditText(view: EditableCheckBox, textView: TextView, actionId: Int, keyEvent: KeyEvent): Boolean {
+    private fun actionCheckableEditText(view: EditableCheckBox, textView: TextView, actionId: Int, keyEvent: KeyEvent): Boolean {
         Log.d(this@FormFragment.javaClass.simpleName, "setOnEditorActionListener(${actionId}, ${keyEvent})")
         //イベントを取得するタイミングには、ボタンが押されてなおかつエンターキーだったときを指定
         if (keyEvent.action == KeyEvent.ACTION_DOWN) {

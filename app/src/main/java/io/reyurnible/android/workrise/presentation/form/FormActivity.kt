@@ -19,10 +19,10 @@ class FormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.form_activity)
         savedInstanceState ?: setContentFragment(R.id.containerLayout, FormFragment.createInstance(date))
-        toolbar.let {
-            setSupportActionBar(it)
-            showAsStack(it)
-            title = date.toDisplay(this)
+        toolbar.run {
+            setSupportActionBar(this)
+            showAsStack(this)
+            title = date.toDisplay(this@FormActivity)
         }
     }
 
