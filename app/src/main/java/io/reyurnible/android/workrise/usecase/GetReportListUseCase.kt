@@ -2,6 +2,7 @@ package io.reyurnible.android.workrise.usecase
 
 import io.reactivex.Single
 import io.reyurnible.android.workrise.domain.model.entity.Report
+import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 
 /**
@@ -9,9 +10,9 @@ import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
  */
 interface GetReportListUseCase {
     /**
-     * @param previousDate
-     * @param nextDate
+     * @param prevId
+     * @param nextId
      * @param order
      */
-    fun get(previousDate: YearMonthDay, nextDate: YearMonthDay, order: Int): Single<List<Report>>
+    fun get(prevId: ReportId?, nextId: ReportId?, order: Int): Single<List<Report>>
 }

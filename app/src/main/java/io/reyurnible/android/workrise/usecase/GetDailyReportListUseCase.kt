@@ -9,9 +9,9 @@ import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
  */
 interface GetDailyReportListUseCase {
     /**
-     * @param previousDate
+     * @param prevDate
      * @param nextDate
      * @param order
      */
-    fun get(previousDate: YearMonthDay, nextDate: YearMonthDay, order: Int): Single<List<Pair<YearMonthDay, Report?>>>
+    fun get(prevDate: YearMonthDay?, nextDate: YearMonthDay?, order: Int): Single<List<Pair<YearMonthDay, Report?>>>
 }
