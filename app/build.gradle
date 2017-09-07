@@ -24,6 +24,13 @@ android {
     androidExtensions {
         experimental = true
     }
+    // For Realm
+    allOpen {
+        annotation('io.realm.annotations.RealmClass')
+    }
+    noArg {
+        annotation('io.realm.annotations.RealmClass')
+    }
 }
 
 dependencies {
