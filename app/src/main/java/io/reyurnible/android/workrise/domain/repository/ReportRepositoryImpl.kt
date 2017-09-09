@@ -37,7 +37,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                         }
                     }
 
-    override fun fetchReportList(minId: ReportId?, maxId: ReportId?, order: Int): Single<List<Report>> =
+    override fun fetchReportList(minId: ReportId?, maxId: ReportId?, count: Int): Single<List<Report>> =
             realmFactory.createInstance()
                     .flatMap { realm ->
                         Single.create<List<Report>> { source ->
@@ -47,8 +47,17 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                             minId?.let { greaterThan("id", it.value.toInteger()) }
                                             maxId?.let { lessThan("id", it.value.toInteger()) }
                                         }
-                                        .findAllSortedAsync("id", Sort.DESCENDING)
+                                        .run {
+                                            // 下のIDから
+                                            if (minId != null) {
+                                                findAllSortedAsync("id", Sort.ASCENDING)
+                                            } else {
+                                                findAllSortedAsync("id", Sort.DESCENDING)
+                                            }
+                                        }
                                         .toMutableList()
+                                        .slice((0 until count))
+                                        .sortedByDescending { it.id }
                                         .map(ReportConverter::convert)
                                         .let(source::onSuccess)
                             } catch (e: RealmException) {

@@ -9,9 +9,16 @@ import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
  */
 interface GetDailyReportListUseCase {
     /**
+     * 指定した値よりも前の日付でcount分の値を作成して返す
      * @param prevDate
-     * @param nextDate
-     * @param order
+     * @param count 取得する日数
      */
-    fun get(prevDate: YearMonthDay?, nextDate: YearMonthDay?, order: Int): Single<List<Pair<YearMonthDay, Report?>>>
+    fun getPrev(prevDate: YearMonthDay? = null, count: Int): Single<List<Pair<YearMonthDay, Report?>>>
+
+    /**
+     * 指定した値よりも後の日付でcount分の日付の値を作成して返す
+     * @param nextDate
+     * @param count 取得する日数
+     */
+    fun getNext(nextDate: YearMonthDay? = null, count: Int): Single<List<Pair<YearMonthDay, Report?>>>
 }

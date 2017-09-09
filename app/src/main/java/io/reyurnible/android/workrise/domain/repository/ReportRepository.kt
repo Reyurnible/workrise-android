@@ -8,7 +8,7 @@ import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
 interface ReportRepository {
     fun fetchReport(id: ReportId): Single<Report>
 
-    fun fetchReportList(minId: ReportId?, maxId: ReportId?, order: Int): Single<List<Report>>
+    fun fetchReportList(minId: ReportId?, maxId: ReportId?, count: Int): Single<List<Report>>
 
     fun editReport(param: ReportEditingParam): Single<Report>
 
