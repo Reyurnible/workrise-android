@@ -18,11 +18,12 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
     override fun fetchReport(id: ReportId): Single<Report> =
             realmFactory.createInstance()
                     .flatMap { realm ->
-                        Single.create<ReportRealmDto> { source ->
+                        Single.create<Report> { source ->
                             try {
                                 realm.where(ReportRealmDto::class.java)
                                         .equalTo("id", id.value.toInteger())
                                         .findFirstAsync()
+                                        ?.let(ReportConverter::convert)
                                         ?.let(source::onSuccess)
                                         // レポートがなかった場合は、ReportNotExistExceptionを返す
                                         ?: throw ReportRepository.ReportNotExistException("Report id ${id.value.toString()} is not exist.")
@@ -34,7 +35,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                 realm.close()
                             }
                         }
-                    }.map(ReportConverter::convert)
+                    }
 
     override fun fetchReportList(minId: ReportId?, maxId: ReportId?, order: Int): Single<List<Report>> =
             realmFactory.createInstance()
@@ -109,12 +110,12 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                                                 content = checkItemParam.content,
                                                                 checked = checkItemParam.checked
                                                         )
-                                                        realm.copyFromRealm(checkItemDto)
+                                                        realm.copyToRealm(checkItemDto)
                                                     })
                                                 }
                                             }
                                         }.run {
-                                            realm.copyFromRealm(this)
+                                            realm.copyToRealm(this)
                                         }
                                     })
                                     realm.copyToRealmOrUpdate(reportDto)
