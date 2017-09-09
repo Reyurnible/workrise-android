@@ -11,7 +11,7 @@ sealed class Form(open val id: FormId, open val reportId: ReportId, open val tit
             override val id: FormId,
             override val reportId: ReportId,
             override val title: String,
-            val content: String
+            val content: String?
     ) : Form(id, reportId, title)
 
     data class CheckList(
