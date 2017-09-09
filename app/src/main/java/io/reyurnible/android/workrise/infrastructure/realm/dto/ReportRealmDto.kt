@@ -1,14 +1,15 @@
 package io.reyurnible.android.workrise.infrastructure.realm.dto
 
+import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
-import io.reyurnible.android.workrise.domain.model.entity.Form
-import io.reyurnible.android.workrise.domain.model.identifier.ReportId
+import java.util.*
 
 @RealmClass
 class ReportRealmDto(
         @PrimaryKey
+        var id: Int,
         val date: String,
-        val content: List<Form>
+        var content: RealmList<FormRealmDto>
 ) : RealmObject()
