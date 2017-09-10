@@ -7,8 +7,8 @@ buildscript {
         // Android Support Lib version
         support_library_version = '25.3.1'
         recycler_tablayout_version = '1.5.0'
-        // DI
-        toothpick_version = '1.0.8'
+        // Dagger
+        dagger_version = '2.11'
         // RxJava
         rx_java_version = '2.0.5'
         // RxAndroid
@@ -20,8 +20,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.realm:realm-gradle-plugin:3.7.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
     }
 }
 
