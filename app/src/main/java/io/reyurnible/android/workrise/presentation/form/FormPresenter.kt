@@ -1,9 +1,12 @@
 package io.reyurnible.android.workrise.presentation.form
 
-/**
- * Created by shunhosaka on 2017/08/31.
- */
-class FormPresenter {
+import io.reyurnible.android.workrise.usecase.CreateReportUseCase
+import javax.inject.Inject
+
+class FormPresenter
+@Inject constructor(
+        private val createReportUseCase: CreateReportUseCase
+) {
 
     interface FormView {
 

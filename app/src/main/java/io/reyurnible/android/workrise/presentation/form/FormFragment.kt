@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.infrastructure.view.EditableCheckBox
@@ -17,10 +18,8 @@ import io.reyurnible.android.workrise.presentation.common.isLastIndexChild
 import io.reyurnible.android.workrise.presentation.common.nextOrNullView
 import kotlinx.android.synthetic.main.form_fragment.*
 import kotlinx.android.synthetic.main.view_editable_checkbox.view.*
-import toothpick.Scope
-import toothpick.Toothpick
-import toothpick.smoothie.module.SmoothieActivityModule
 import javax.inject.Inject
+
 
 /**
  * Form page
@@ -30,14 +29,11 @@ class FormFragment : Fragment() {
 
     private val date: YearMonthDay by bindDate()
 
-    private lateinit var scope: Scope
     @Inject lateinit var presenter: FormPresenter
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        scope = Toothpick.openScopes(activity.application, this).apply {
-            installModules(SmoothieActivityModule(activity))
-        }
+        AndroidSupportInjection.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -50,7 +46,7 @@ class FormFragment : Fragment() {
     }
 
     override fun onDetach() {
-        Toothpick.closeScope(scope)
+
         super.onDetach()
     }
 

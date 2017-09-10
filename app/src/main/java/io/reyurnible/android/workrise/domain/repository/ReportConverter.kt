@@ -19,7 +19,7 @@ object ReportConverter {
     }
 
     fun convert(reportId: ReportId, dto: FormRealmDto): Form = kotlin.run {
-        val formId = FormId(checkNotNull(dto.id.get()))
+        val formId = FormId(checkNotNull(dto.id))
         when (dto.type) {
             FormRealmDto.Type.text -> {
                 Form.Text(
@@ -43,7 +43,7 @@ object ReportConverter {
 
     fun convert(formId: FormId, dto: CheckItemRealmDto): CheckItem = kotlin.run {
         CheckItem(
-                id = CheckItemId(checkNotNull(dto.id.get())),
+                id = CheckItemId(checkNotNull(dto.id)),
                 formId = formId,
                 content = dto.content,
                 checked = dto.checked
