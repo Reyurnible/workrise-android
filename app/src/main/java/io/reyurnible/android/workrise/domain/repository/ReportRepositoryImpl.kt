@@ -90,8 +90,8 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                         when (formParam) {
                                             is ReportEditingParam.FormEditingParam.Text -> {
                                                 FormRealmDto(
-                                                        id = MutableRealmInteger.valueOf(realm.where(FormRealmDto::class.java).count()).apply {
-                                                            increment(1)
+                                                        id = realm.where(FormRealmDto::class.java).count().apply {
+                                                            inc()
                                                         },
                                                         type = FormRealmDto.Type.text,
                                                         title = formParam.title,
@@ -102,8 +102,8 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                             }
                                             is ReportEditingParam.FormEditingParam.CheckList -> {
                                                 FormRealmDto(
-                                                        id = MutableRealmInteger.valueOf(realm.where(FormRealmDto::class.java).count()).apply {
-                                                            increment(1)
+                                                        id = realm.where(FormRealmDto::class.java).count().apply {
+                                                            inc()
                                                         },
                                                         type = FormRealmDto.Type.checkList,
                                                         title = formParam.title,
@@ -113,8 +113,8 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                                 ).apply {
                                                     checkItemList.addAll(formParam.content.map { checkItemParam ->
                                                         val checkItemDto = CheckItemRealmDto(
-                                                                id = MutableRealmInteger.valueOf(realm.where(CheckItemRealmDto::class.java).count()).apply {
-                                                                    increment(1)
+                                                                id = realm.where(CheckItemRealmDto::class.java).count().apply {
+                                                                    inc()
                                                                 },
                                                                 content = checkItemParam.content,
                                                                 checked = checkItemParam.checked

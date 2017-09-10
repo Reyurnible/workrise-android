@@ -7,7 +7,7 @@ import io.realm.annotations.RealmClass
 import java.util.*
 
 @RealmClass
-class ReportRealmDto(
+data class ReportRealmDto(
         @PrimaryKey
         var id: Int,
         val date: String,

@@ -1,6 +1,5 @@
 package io.reyurnible.android.workrise.infrastructure.realm.dto
 
-import io.realm.MutableRealmInteger
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.RealmResults
@@ -10,9 +9,9 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 
 @RealmClass
-class FormRealmDto(
+data class FormRealmDto(
         @PrimaryKey
-        var id: MutableRealmInteger,
+        var id: Long,
         @Index
         var type: String,
         @Index
