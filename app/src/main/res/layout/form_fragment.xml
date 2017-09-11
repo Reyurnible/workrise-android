@@ -45,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_light"
-        android:paddingBottom="8dp"
         android:orientation="vertical"
+        android:paddingBottom="8dp"
         android:paddingTop="8dp">
 
         <EditText
@@ -62,5 +62,14 @@
             android:paddingTop="8dp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/theme_accent"
+        android:text="SAVE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse" />
 
 </LinearLayout>

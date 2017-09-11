@@ -8,6 +8,10 @@ class FormPresenter
         private val createReportUseCase: CreateReportUseCase
 ) {
 
+    fun clickSave() {
+
+    }
+
     interface FormView {
 
     }

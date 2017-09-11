@@ -45,14 +45,14 @@ class FormFragment : Fragment() {
         initializeView()
     }
 
-    override fun onDetach() {
-
-        super.onDetach()
-    }
-
     private fun initializeView() {
         todoContainerLayout.apply {
             addView(createEditableCheckBox(), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        }
+        saveButton.setOnClickListener {
+            presenter.clickSave(
+
+            )
         }
     }
 
