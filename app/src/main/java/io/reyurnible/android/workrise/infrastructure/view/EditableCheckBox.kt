@@ -15,6 +15,14 @@ import kotlinx.android.synthetic.main.view_editable_checkbox.view.*
  * EditText + CheckBox
  */
 class EditableCheckBox : RelativeLayout, Checkable {
+
+    private var checked: Boolean = false
+    var content: String?
+        set(value) {
+            contentEditText.setText(value)
+        }
+        get() = contentEditText.text?.toString()
+
     var editorActionListener: ((v: EditableCheckBox, editable: TextView, actionId: Int, event: KeyEvent) -> Boolean)? = null
         set(value) {
             field = value
@@ -26,8 +34,6 @@ class EditableCheckBox : RelativeLayout, Checkable {
                 contentEditText.setOnEditorActionListener(null)
             }
         }
-
-    private var checked: Boolean = false
 
     @JvmOverloads
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
