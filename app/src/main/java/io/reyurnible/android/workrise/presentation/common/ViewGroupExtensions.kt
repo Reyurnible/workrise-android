@@ -26,5 +26,5 @@ fun ViewGroup.prevOrNullView(view: View): View? = kotlin.run {
     } else null
 }
 
-fun ViewGroup.getChildList(): List<View> =
+fun ViewGroup.childList(): List<View> =
         (0 until childCount).map { getChildAt(it) }

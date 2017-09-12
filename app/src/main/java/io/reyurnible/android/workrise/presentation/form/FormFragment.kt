@@ -3,28 +3,23 @@ package io.reyurnible.android.workrise.presentation.form
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.EditText
 import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
+import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.infrastructure.view.EditableCheckBox
-import io.reyurnible.android.workrise.presentation.common.isLastIndexChild
-import io.reyurnible.android.workrise.presentation.common.nextOrNullView
+import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
+import io.reyurnible.android.workrise.presentation.common.childList
 import kotlinx.android.synthetic.main.form_fragment.*
-import kotlinx.android.synthetic.main.view_editable_checkbox.view.*
 import javax.inject.Inject
-
 
 /**
  * Form page
  */
-class FormFragment : Fragment() {
+class FormFragment : Fragment(), FormPresenter.FormView {
     companion object;
 
     private val date: YearMonthDay by bindDate()
@@ -41,60 +36,41 @@ class FormFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.initialize(this, date)
         // Presenter Injection
         initializeView()
     }
 
+    override fun onDestroyView() {
+        presenter.release()
+        super.onDestroyView()
+    }
+
     private fun initializeView() {
-        todoContainerLayout.apply {
-            addView(createEditableCheckBox(), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-        }
         saveButton.setOnClickListener {
-            presenter.clickSave(
-
-            )
+            val todoContent = FormEditingParam.CheckList("やること", todoContainerLayout.checkItems)
+            val otherContent = FormEditingParam.Text("その他、メモ", otherContainerLayout.childList().map { it as EditText }.map { it.text.toString() }.first())
+            presenter.clickSave(formContent = listOf(todoContent, otherContent))
         }
     }
 
-    private fun createEditableCheckBox(): EditableCheckBox = EditableCheckBox(activity).apply {
-        // EditText Setting
-        editorActionListener = this@FormFragment::actionCheckableEditText
+    override fun transitionReportDetails(report: Report) {
+        TODO("not implemented")
     }
 
-    private fun actionCheckableEditText(view: EditableCheckBox, textView: TextView, actionId: Int, keyEvent: KeyEvent): Boolean {
-        Log.d(this@FormFragment.javaClass.simpleName, "setOnEditorActionListener(${actionId}, ${keyEvent})")
-        //イベントを取得するタイミングには、ボタンが押されてなおかつエンターキーだったときを指定
-        if (keyEvent.action == KeyEvent.ACTION_DOWN) {
-            if (textView.text.isNullOrBlank()) {
-                // 改行させないので、どのみちスルーする
-                return true
-            }
-            (view.parent as? LinearLayout)?.let { container ->
-                if (container.isLastIndexChild(view)) {
-                    // 最後の場合
-                    container.addView(createEditableCheckBox().apply {
-                        this.contentEditText.apply {
-                            isFocusableInTouchMode = true
-                            requestFocus()
-                            setSelection(0)
-                        }
-                    }, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-                } else {
-                    // それ以外の場合、次のViewにFocusを移す
-                    (container.nextOrNullView(view) as? EditableCheckBox)?.apply {
-                        this.contentEditText.apply {
-                            isFocusableInTouchMode = true
-                            requestFocus()
-                            setSelection(0)
-                        }
-                    }
-                }
-                return true
-            }
-            return false
-        } else {
-            return false
-        }
+    override fun finish() {
+        activity.finish()
     }
 
+    override fun showErrorDialog(error: Throwable) {
+        error.printStackTrace()
+    }
+
+    override fun showLoadingDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideLoadingDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
