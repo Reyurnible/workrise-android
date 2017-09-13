@@ -1,9 +1,7 @@
 package io.reyurnible.android.workrise
 
 import dagger.Module
-import io.reyurnible.android.workrise.presentation.top.TopComponent
+import io.reyurnible.android.workrise.presentation.PresentationModule
 
-@Module(subcomponents = arrayOf(TopComponent::class))
-class AppModule {
-
-}
+@Module(includes = arrayOf(PresentationModule::class))
+class AppModule

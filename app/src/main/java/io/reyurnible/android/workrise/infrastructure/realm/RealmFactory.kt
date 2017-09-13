@@ -8,20 +8,19 @@ import io.realm.RealmConfiguration
 /**
  * Realm Instance Factory
  */
-class RealmFactory(application: Application) {
+class RealmFactory {
     companion object {
         const val DB_NAME = "workrise.realm"
+        const val DB_SCHEME_VERSION = 0L
     }
 
     private val config: RealmConfiguration
 
     init {
-        Realm.init(application)
         config = RealmConfiguration.Builder()
                 .name(DB_NAME)
-                .schemaVersion(1)
+                .schemaVersion(DB_SCHEME_VERSION)
                 .build()
-        Realm.getDefaultInstance()
     }
 
     fun createInstance(): Single<Realm> =
@@ -31,9 +30,9 @@ class RealmFactory(application: Application) {
                         source.onSuccess(realm)
                     }
 
-                    override fun onError(exception: Throwable?) {
+                    override fun onError(exception: Throwable) {
                         super.onError(exception)
-                        exception?.let(source::onError)
+                        exception.let(source::onError)
                     }
                 })
             }
