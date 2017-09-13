@@ -7,6 +7,7 @@ import io.realm.Sort
 import io.realm.exceptions.RealmException
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
+import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
 import io.reyurnible.android.workrise.infrastructure.realm.RealmFactory
 import io.reyurnible.android.workrise.infrastructure.realm.dto.CheckItemRealmDto
@@ -88,7 +89,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                     )
                                     reportDto.content.addAll(param.content.map { formParam ->
                                         when (formParam) {
-                                            is ReportEditingParam.FormEditingParam.Text -> {
+                                            is FormEditingParam.Text -> {
                                                 FormRealmDto(
                                                         id = realm.where(FormRealmDto::class.java).count().apply {
                                                             inc()
@@ -100,7 +101,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                                         report = null
                                                 )
                                             }
-                                            is ReportEditingParam.FormEditingParam.CheckList -> {
+                                            is FormEditingParam.CheckList -> {
                                                 FormRealmDto(
                                                         id = realm.where(FormRealmDto::class.java).count().apply {
                                                             inc()
