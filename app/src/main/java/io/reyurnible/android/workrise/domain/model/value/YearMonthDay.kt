@@ -13,7 +13,8 @@ data class YearMonthDay(
         val year: Int,
         val month: Int,
         val day: Int
-) : Parcelable {
+) : Parcelable, Comparable<YearMonthDay> {
+
     companion object {
         private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
@@ -36,6 +37,12 @@ data class YearMonthDay(
     constructor(date: Date) : this(calendar = Calendar.getInstance().apply { time = date })
 
     override fun toString(): String = String.format("%04d-%02d-%02d", year, month, day)
+
+    override fun compareTo(other: YearMonthDay): Int = (this.toInteger() - other.toInteger()).let {
+        if (it > 0) 1
+        else if (it < 0) -1
+        else 0
+    }
 
     fun toInteger(): Int = (year * 10000 + month * 100 + day)
 
