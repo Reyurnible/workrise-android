@@ -76,10 +76,6 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                     .flatMap { realm ->
                         Single.create<ReportRealmDto> { source ->
                             try {
-                                // Set Cancellable
-                                source.setCancellable {
-                                    realm.cancelTransaction()
-                                }
                                 // Execute Transaction
                                 realm.executeTransaction { realm ->
                                     val reportDto = ReportRealmDto(
