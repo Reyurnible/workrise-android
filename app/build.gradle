@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: "kotlin-allopen"
-// Realmとの相性が悪くうまく使えなかったため、導入見送り
-// apply plugin: "kotlin-noarg"
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
+apply plugin: "kotlin-allopen"
+apply plugin: "kotlin-noarg"
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
@@ -37,12 +36,12 @@ android {
 
 // For Realm
 allOpen {
-    annotation('io.reyurnible.android.workrise.infrastructure.realm.dto.RealmDto')
+    annotation('io.realm.annotations.RealmClass')
 }
 
-//noArg {
-//    annotation('io.reyurnible.android.workrise.infrastructure.realm.dto.RealmDto')
-//}
+noArg {
+    annotation('io.realm.annotations.RealmClass')
+}
 
 // enable @ParametersAreNonnullByDefault annotation. See https://blog.jetbrains.com/kotlin/2017/08/kotlin-1-1-4-is-out/
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

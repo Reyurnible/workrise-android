@@ -1,26 +1,27 @@
 package io.reyurnible.android.workrise.infrastructure.realm.dto
 
 import io.realm.RealmList
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.RealmResults
 import io.realm.annotations.Index
 import io.realm.annotations.LinkingObjects
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 
-@RealmDto
-data class FormRealmDto(
+@RealmClass
+class FormRealmDto(
         @PrimaryKey
-        var id: Long = 0,
+        var id: Long,
         @Index
-        var type: String = "",
+        var type: String,
         @Index
-        var title: String = "",
+        var title: String,
         @Index
-        var content: String? = "",
-        var checkItemList: RealmList<CheckItemRealmDto> = RealmList(),
+        var content: String?,
+        var checkItemList: RealmList<CheckItemRealmDto>,
         @LinkingObjects("content")
         val report: RealmResults<ReportRealmDto>? = null
-) : RealmObject() {
+) : RealmModel {
     object Type {
         const val text = "text"
         const val checkList = "check_list"
