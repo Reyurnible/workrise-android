@@ -26,8 +26,8 @@ class FormFragment : Fragment(), FormPresenter.FormView {
 
     @Inject lateinit var presenter: FormPresenter
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
     }
 
