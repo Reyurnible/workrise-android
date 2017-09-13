@@ -6,19 +6,17 @@ import io.realm.RealmResults
 import io.realm.annotations.Index
 import io.realm.annotations.LinkingObjects
 import io.realm.annotations.PrimaryKey
-import io.realm.annotations.RealmClass
 
-@RealmClass
-data class FormRealmDto(
+open class FormRealmDto(
         @PrimaryKey
-        var id: Long,
+        var id: Long = 0,
         @Index
-        var type: String,
+        var type: String = "",
         @Index
-        var title: String,
+        var title: String = "",
         @Index
-        var content: String?,
-        var checkItemList: RealmList<CheckItemRealmDto>,
+        var content: String? = "",
+        var checkItemList: RealmList<CheckItemRealmDto> = RealmList(),
         @LinkingObjects("content")
         val report: RealmResults<ReportRealmDto>? = null
 ) : RealmObject() {

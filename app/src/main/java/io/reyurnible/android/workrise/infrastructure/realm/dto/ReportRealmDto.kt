@@ -6,10 +6,9 @@ import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 import java.util.*
 
-@RealmClass
-data class ReportRealmDto(
+open class ReportRealmDto(
         @PrimaryKey
-        var id: Int,
-        val date: String,
-        var content: RealmList<FormRealmDto>
+        var id: Int = 0,
+        var date: String = "",
+        var content: RealmList<FormRealmDto> = RealmList()
 ) : RealmObject()

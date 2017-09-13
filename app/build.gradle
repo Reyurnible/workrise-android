@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "kotlin-allopen"
-apply plugin: "kotlin-noarg"
+//apply plugin: "kotlin-allopen"
+//apply plugin: "kotlin-noarg"
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -23,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        jumboMode = true
+    }
     androidExtensions {
         experimental = true
     }
@@ -32,12 +35,19 @@ android {
 }
 
 // For Realm
-allOpen {
-    annotation('io.realm.annotations.RealmClass')
-}
+//allOpen {
+//    annotation('io.realm.annotations.RealmClass')
+//}
+//
+//noArg {
+//    annotation('io.realm.annotations.RealmClass')
+//}
 
-noArg {
-    annotation('io.realm.annotations.RealmClass')
+// enable @ParametersAreNonnullByDefault annotation. See https://blog.jetbrains.com/kotlin/2017/08/kotlin-1-1-4-is-out/
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305-annotations=enable"]
+    }
 }
 
 dependencies {

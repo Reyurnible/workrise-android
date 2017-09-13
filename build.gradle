@@ -13,14 +13,14 @@ buildscript {
         rx_java_version = '2.0.5'
         // RxAndroid
         rx_android_version = '2.0.1'
+        realm_version = '3.7.2'
     }
-
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "io.realm:realm-gradle-plugin:3.7.1"
+        classpath "io.realm:realm-gradle-plugin:$realm_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"

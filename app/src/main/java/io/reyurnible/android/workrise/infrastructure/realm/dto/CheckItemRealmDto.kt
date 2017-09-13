@@ -5,12 +5,11 @@ import io.realm.annotations.Index
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 
-@RealmClass
-data class CheckItemRealmDto(
+open class CheckItemRealmDto(
         @PrimaryKey
-        val id: Long,
+        var id: Long = 0,
         @Index
-        val content: String,
+        var content: String = "",
         @Index
-        val checked: Boolean
+        var checked: Boolean = false
 ) : RealmObject()
