@@ -9,7 +9,7 @@ import io.realm.annotations.RealmClass
 @RealmClass
 class ReportRealmDto(
         @PrimaryKey
-        var id: Int,
-        var date: String,
-        var content: RealmList<FormRealmDto>
+        var id: Int = 0,
+        var date: String = "",
+        var content: RealmList<FormRealmDto> = RealmList()
 ) : RealmModel

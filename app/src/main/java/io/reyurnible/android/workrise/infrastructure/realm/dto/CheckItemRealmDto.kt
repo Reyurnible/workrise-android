@@ -9,9 +9,9 @@ import io.realm.annotations.RealmClass
 @RealmClass
 class CheckItemRealmDto(
         @PrimaryKey
-        var id: Long,
+        var id: Long = 0,
         @Index
-        var content: String,
+        var content: String = "",
         @Index
-        var checked: Boolean
+        var checked: Boolean = false
 ) : RealmModel

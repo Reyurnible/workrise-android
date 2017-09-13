@@ -1,10 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
-apply plugin: "kotlin-allopen"
-apply plugin: "kotlin-noarg"
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -36,10 +35,6 @@ android {
 
 // For Realm
 allOpen {
-    annotation('io.realm.annotations.RealmClass')
-}
-
-noArg {
     annotation('io.realm.annotations.RealmClass')
 }
 
