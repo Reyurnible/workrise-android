@@ -57,7 +57,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                             }
                                         }
                                         .toMutableList()
-                                        .slice((0 until count))
+                                        .take(count)
                                         .sortedByDescending { it.id }
                                         .map(ReportConverter::convert)
                                         .let(source::onSuccess)

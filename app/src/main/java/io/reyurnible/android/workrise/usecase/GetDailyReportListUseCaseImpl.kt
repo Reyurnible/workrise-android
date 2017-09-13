@@ -17,7 +17,7 @@ class GetDailyReportListUseCaseImpl(private val reportRepository: ReportReposito
         }.let { YearMonthDay(it) }
         return reportRepository.fetchReportList(
                 minId = ReportId(minDate),
-                maxId = ReportId(prevDate ?: YearMonthDay(Date())),
+                maxId = ReportId(maxDate),
                 count = count
         ).map { reports ->
             // prevDate自体は含まないので、1から
@@ -35,7 +35,28 @@ class GetDailyReportListUseCaseImpl(private val reportRepository: ReportReposito
     }
 
     override fun getNext(nextDate: YearMonthDay?, count: Int): Single<List<Pair<YearMonthDay, Report?>>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val minDate = nextDate ?: YearMonthDay(Date())
+        val maxDate = Calendar.getInstance().apply {
+            time = minDate.toDate()
+            add(Calendar.DATE, count)
+        }.let { YearMonthDay(it) }
+        return reportRepository.fetchReportList(
+                minId = ReportId(minDate),
+                maxId = ReportId(maxDate),
+                count = count
+        ).map { reports ->
+            // prevDate自体は含まないので、1から
+            (1..count).map {
+                // 日付リストの作成
+                Calendar.getInstance().apply {
+                    time = maxDate.toDate()
+                    add(Calendar.DATE, it)
+                }.let { YearMonthDay(it) }
+            }.map { date ->
+                // レポートの結びつけ
+                Pair(date, reports.find { it.id == ReportId(date) })
+            }
+        }
     }
 
 }

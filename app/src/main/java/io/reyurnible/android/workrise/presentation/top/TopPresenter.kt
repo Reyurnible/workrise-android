@@ -61,7 +61,7 @@ class TopPresenter
                         currentPosition = data.size
                     }
                 }, {
-
+                    it.printStackTrace()
                 }).addDisposableToBag(disposableBag)
     }
 
