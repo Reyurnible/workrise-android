@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: "kotlin-allopen"
-//apply plugin: "kotlin-noarg"
+apply plugin: "kotlin-allopen"
+// Realmとの相性が悪くうまく使えなかったため、導入見送り
+// apply plugin: "kotlin-noarg"
+apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
 
 android {
@@ -35,12 +36,12 @@ android {
 }
 
 // For Realm
-//allOpen {
-//    annotation('io.realm.annotations.RealmClass')
-//}
-//
+allOpen {
+    annotation('io.reyurnible.android.workrise.infrastructure.realm.dto.RealmDto')
+}
+
 //noArg {
-//    annotation('io.realm.annotations.RealmClass')
+//    annotation('io.reyurnible.android.workrise.infrastructure.realm.dto.RealmDto')
 //}
 
 // enable @ParametersAreNonnullByDefault annotation. See https://blog.jetbrains.com/kotlin/2017/08/kotlin-1-1-4-is-out/

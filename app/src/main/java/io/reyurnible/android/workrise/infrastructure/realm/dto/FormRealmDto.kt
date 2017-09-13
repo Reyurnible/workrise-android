@@ -7,7 +7,8 @@ import io.realm.annotations.Index
 import io.realm.annotations.LinkingObjects
 import io.realm.annotations.PrimaryKey
 
-open class FormRealmDto(
+@RealmDto
+data class FormRealmDto(
         @PrimaryKey
         var id: Long = 0,
         @Index

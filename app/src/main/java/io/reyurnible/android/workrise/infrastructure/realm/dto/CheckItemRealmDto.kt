@@ -5,7 +5,8 @@ import io.realm.annotations.Index
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 
-open class CheckItemRealmDto(
+@RealmDto
+data class CheckItemRealmDto(
         @PrimaryKey
         var id: Long = 0,
         @Index
