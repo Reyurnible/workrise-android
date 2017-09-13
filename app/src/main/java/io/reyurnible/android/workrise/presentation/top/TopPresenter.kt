@@ -6,6 +6,7 @@ import io.reyurnible.android.workrise.common.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.usecase.GetDailyReportListUseCase
+import java.util.*
 import javax.inject.Inject
 
 class TopPresenter
@@ -35,19 +36,25 @@ class TopPresenter
         currentPosition = position
         if (position == 0) {
             getPrevDailyReport()
-        } else if (position == dailyReportList.size - 1) {
+        } else if (dailyReportList[position].first < YearMonthDay(Date()) && position == dailyReportList.size - 1) {
             getNextDailyReport()
         }
     }
 
     private fun getPrevDailyReport() {
+        // 初回のリクエストに今日を含めるために、prevDateに一日進めた日付を入れる
+        val requestDate = dailyReportList.firstOrNull()?.first ?: Calendar.getInstance().apply {
+            time = Date()
+            add(Calendar.DATE, 1)
+        }.let { YearMonthDay(it) }
         getDailyReportListUseCase
-                .getPrev(prevDate = dailyReportList.firstOrNull()?.first, count = REQUEST_COUNT)
+                .getPrev(prevDate = requestDate, count = REQUEST_COUNT)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ data ->
                     if (data.isEmpty()) return@subscribe
 
                     dailyReportList.addAll(data)
+                    dailyReportList.distinctBy { it.first }
                     dailyReportList.sortBy { it.first }
                     view.setDailyReportList(dailyReportList)
                     // 初回のリクエストかどうかのチェック
@@ -73,6 +80,7 @@ class TopPresenter
                     if (data.isEmpty()) return@subscribe
 
                     dailyReportList.addAll(data)
+                    dailyReportList.distinctBy { it.first }
                     dailyReportList.sortBy { it.first }
                     view.setDailyReportList(dailyReportList)
                     // 初回のリクエストかどうかのチェック

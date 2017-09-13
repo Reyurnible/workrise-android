@@ -45,7 +45,7 @@ class TopActivity : AppCompatActivity(), TopPresenter.TopView {
     }
 
     override fun setCurrentPosition(position: Int) {
-        viewPager.currentItem = position
+        viewPager.setCurrentItem(position, false)
     }
 
 }
