@@ -1,10 +1,12 @@
 package io.reyurnible.android.workrise.presentation.report
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.presentation.form.FormActivity
@@ -17,6 +19,11 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     companion object;
 
     private val date: YearMonthDay by bindDate()
+
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.report_fragment, container, false)

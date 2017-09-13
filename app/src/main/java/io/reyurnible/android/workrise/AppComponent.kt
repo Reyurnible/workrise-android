@@ -11,7 +11,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        DataModule::class
+        DataModule::class,
+        PresentationModule::class
 ))
 interface AppComponent : AndroidInjector<WorkriseApplication> {
 

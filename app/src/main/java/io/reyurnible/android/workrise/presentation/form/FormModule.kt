@@ -4,10 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ActivityKey
 import dagger.android.ContributesAndroidInjector
-import dagger.android.support.FragmentKey
 import dagger.multibindings.IntoMap
-import io.reyurnible.android.workrise.presentation.top.TopActivity
-import io.reyurnible.android.workrise.presentation.top.TopPresenter
 
 @Module
 abstract class FormModule {
@@ -19,4 +16,7 @@ abstract class FormModule {
 
     @ContributesAndroidInjector
     abstract fun contributeFormFragment(): FormFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeFormActivity(): FormActivity
 }
