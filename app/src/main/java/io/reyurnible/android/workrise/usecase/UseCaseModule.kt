@@ -19,4 +19,9 @@ class UseCaseModule {
     fun provideGetDailyReportListUseCase(reportRepository: ReportRepository): GetDailyReportListUseCase =
             GetDailyReportListUseCaseImpl(reportRepository)
 
+    @Singleton
+    @Provides
+    fun provideGetReportUseCase(reportRepository: ReportRepository): GetReportUseCase =
+            GetReportUseCaseImpl(reportRepository)
+
 }
