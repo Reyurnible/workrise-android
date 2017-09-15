@@ -1,5 +1,6 @@
 package io.reyurnible.android.workrise.infrastructure
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.reyurnible.android.workrise.infrastructure.realm.RealmFactory
@@ -10,7 +11,7 @@ class InfrastructureModule {
 
     @Singleton
     @Provides
-    fun provideRealmFactory(): RealmFactory =
-            RealmFactory()
+    fun provideRealmFactory(context: Context): RealmFactory =
+            RealmFactory(context)
 
 }

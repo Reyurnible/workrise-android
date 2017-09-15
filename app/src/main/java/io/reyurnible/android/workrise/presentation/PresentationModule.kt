@@ -14,6 +14,4 @@ import io.reyurnible.android.workrise.presentation.top.TopModule
         FormModule::class,
         ReportModule::class)
 )
-abstract class PresentationModule {
-
-}
+class PresentationModule

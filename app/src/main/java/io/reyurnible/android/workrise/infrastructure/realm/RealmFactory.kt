@@ -1,6 +1,7 @@
 package io.reyurnible.android.workrise.infrastructure.realm
 
 import android.app.Application
+import android.content.Context
 import io.reactivex.Single
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -8,7 +9,7 @@ import io.realm.RealmConfiguration
 /**
  * Realm Instance Factory
  */
-class RealmFactory {
+class RealmFactory(context: Context) {
     companion object {
         const val DB_NAME = "workrise.realm"
         const val DB_SCHEME_VERSION = 0L
@@ -17,6 +18,7 @@ class RealmFactory {
     private val config: RealmConfiguration
 
     init {
+        Realm.init(context)
         config = RealmConfiguration.Builder()
                 .name(DB_NAME)
                 .schemaVersion(DB_SCHEME_VERSION)
