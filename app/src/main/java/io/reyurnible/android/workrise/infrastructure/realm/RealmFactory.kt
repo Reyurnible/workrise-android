@@ -19,6 +19,7 @@ class RealmFactory(context: Context) {
 
     init {
         Realm.init(context)
+
         config = RealmConfiguration.Builder()
                 .name(DB_NAME)
                 .schemaVersion(DB_SCHEME_VERSION)

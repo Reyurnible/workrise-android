@@ -1,7 +1,6 @@
 package io.reyurnible.android.workrise.domain.repository
 
 import io.reactivex.Single
-import io.realm.MutableRealmInteger
 import io.realm.RealmList
 import io.realm.Sort
 import io.realm.exceptions.RealmException
@@ -23,14 +22,14 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                             try {
                                 realm.where(ReportRealmDto::class.java)
                                         .equalTo("id", id.value.toInteger())
-                                        .findFirstAsync()
+                                        .findFirst()
                                         ?.let(ReportConverter::convert)
                                         ?.let(source::onSuccess)
                                         // レポートがなかった場合は、ReportNotExistExceptionを返す
                                         ?: throw ReportRepository.ReportNotExistException("Report id ${id.value.toString()} is not exist.")
-                            } catch (e: RealmException) {
-                                source.onError(e)
                             } catch (e: ReportRepository.ReportNotExistException) {
+                                source.onError(e)
+                            } catch (e: Throwable) {
                                 source.onError(e)
                             } finally {
                                 realm.close()
