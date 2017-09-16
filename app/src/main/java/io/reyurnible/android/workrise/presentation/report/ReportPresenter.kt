@@ -6,7 +6,6 @@ import io.reyurnible.android.workrise.common.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.domain.repository.ReportRepository
 import io.reyurnible.android.workrise.usecase.GetReportUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -22,16 +21,14 @@ class ReportPresenter
     fun initialize(view: ReportPresenter.ReportView, date: YearMonthDay) {
         this.date = date
         this.view = view
-        getReportUseCase.get(id = ReportId(date))
+        getReportUseCase.bind(id = ReportId(date))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ report ->
-                    view.report = report
+                    view.report = report.value
                 }, { error ->
-                    if (error is ReportRepository.ReportNotExistException) {
-                        view.report = null
-                    } else {
-                        view.showErrorDialog(error)
-                    }
+                    view.showErrorDialog(error)
+                }, {
+
                 }).addDisposableToBag(disposableBag)
     }
 

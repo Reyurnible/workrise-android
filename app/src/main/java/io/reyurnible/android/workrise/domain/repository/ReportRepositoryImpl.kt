@@ -1,11 +1,13 @@
 package io.reyurnible.android.workrise.domain.repository
 
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.realm.RealmList
 import io.realm.Sort
 import io.realm.exceptions.RealmException
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
+import io.reyurnible.android.workrise.domain.model.value.Optional
 import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
 import io.reyurnible.android.workrise.infrastructure.realm.RealmFactory
@@ -32,6 +34,29 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                             } catch (e: Throwable) {
                                 source.onError(e)
                             } finally {
+                                realm.close()
+                            }
+                        }
+                    }
+
+    override fun observeReport(id: ReportId): Observable<Optional<Report>> =
+            realmFactory.createInstance()
+                    .flatMapObservable { realm ->
+                        Observable.create<Optional<Report>> { source ->
+                            try {
+                                realm.where(ReportRealmDto::class.java)
+                                        .equalTo("id", id.value.toInteger())
+                                        .findAllAsync()
+                                        .addChangeListener { dto ->
+                                            if (!source.isDisposed) {
+                                                val report = dto.firstOrNull()?.let(ReportConverter::convert)
+                                                source.onNext(Optional.ofNull(report))
+                                            }
+                                        }
+                            } catch (e: Throwable) {
+                                source.onError(e)
+                            }
+                            source.setCancellable {
                                 realm.close()
                             }
                         }
