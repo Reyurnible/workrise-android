@@ -20,7 +20,6 @@ import io.reyurnible.android.workrise.presentation.form.FormActivity
 import io.reyurnible.android.workrise.presentation.form.createIntent
 import kotlinx.android.synthetic.main.report_fragment.*
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 class ReportFragment : Fragment(), ReportPresenter.ReportView {
     companion object;
@@ -45,6 +44,10 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.initialize(this, date)
+        emptyGroup.referencedIds = intArrayOf(R.id.emptyImage, R.id.createButton)
+        createButton.setOnClickListener {
+            startActivity(FormActivity.createIntent(activity, date))
+        }
     }
 
     override fun onDestroyView() {
@@ -53,7 +56,7 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     }
 
     override fun showErrorDialog(error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     /**
@@ -61,7 +64,7 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
      */
     private fun inflateReport(report: Report?) {
         report?.run {
-            createButton.invisible()
+            emptyGroup.invisible()
             val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             content.map { form ->
                 when (form) {
@@ -72,10 +75,7 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
                 reportContainerLayout.addView(view, layoutParams)
             }
         } ?: let {
-            createButton.visible()
-            createButton.setOnClickListener {
-                startActivity(FormActivity.createIntent(activity, date))
-            }
+            emptyGroup.visible()
         }
     }
 
