@@ -6,6 +6,7 @@ import io.reyurnible.android.workrise.common.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import io.reyurnible.android.workrise.domain.repository.ReportRepository
 import io.reyurnible.android.workrise.usecase.GetReportUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -26,7 +27,11 @@ class ReportPresenter
                 .subscribe({ report ->
                     view.report = report
                 }, { error ->
-                    view.showErrorDialog(error)
+                    if (error is ReportRepository.ReportNotExistException) {
+                        view.report = null
+                    } else {
+                        view.showErrorDialog(error)
+                    }
                 }).addDisposableToBag(disposableBag)
     }
 
