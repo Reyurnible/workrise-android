@@ -38,6 +38,7 @@ class ChecklistFormView : RelativeLayout {
 
     private fun inflateForm(form: Form.CheckList?) {
         titleText.text = form?.title
+        contentContainerLayout.removeAllViews()
         form?.let { form ->
             val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             form.content.map { checkList ->
@@ -50,8 +51,6 @@ class ChecklistFormView : RelativeLayout {
             }.forEach { view ->
                 contentContainerLayout.addView(view, layoutParams)
             }
-        } ?: let {
-            contentContainerLayout.removeAllViews()
         }
     }
 
