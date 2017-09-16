@@ -20,6 +20,7 @@ class TopPresenter
     private lateinit var view: TopView
     private val disposableBag: CompositeDisposable = CompositeDisposable()
 
+    private val today = YearMonthDay(Date())
     private var currentPosition: Int? = null
     private val dailyReportList: MutableList<Pair<YearMonthDay, Report?>> = mutableListOf()
 
@@ -32,12 +33,20 @@ class TopPresenter
         disposableBag.clear()
     }
 
-    fun selectedPage(position: Int) {
+    fun changePage(position: Int) {
         currentPosition = position
         if (position == 0) {
             getPrevDailyReport()
-        } else if (dailyReportList[position].first < YearMonthDay(Date()) && position == dailyReportList.size - 1) {
+        } else if (dailyReportList[position].first < today && position == dailyReportList.size - 1) {
             getNextDailyReport()
+        }
+        // 今日の日付かどうかのステータスをセットする
+        view.setCurrentPositionStatus(dailyReportList[position].first == today)
+    }
+
+    fun clickBackToday() {
+        if (dailyReportList.isNotEmpty()) {
+            view.setCurrentPosition(dailyReportList.lastIndex)
         }
     }
 
@@ -101,6 +110,7 @@ class TopPresenter
     interface TopView {
         fun setDailyReportList(dailyReportList: List<Pair<YearMonthDay, Report?>>)
         fun setCurrentPosition(position: Int)
+        fun setCurrentPositionStatus(isToday: Boolean)
     }
 
 }

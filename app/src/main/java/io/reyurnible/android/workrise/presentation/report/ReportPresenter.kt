@@ -24,7 +24,7 @@ class ReportPresenter
         getReportUseCase.bind(id = ReportId(date))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ report ->
-                    view.report = report.value
+                    view.setReport(report.value)
                 }, { error ->
                     view.showErrorDialog(error)
                 }, {
@@ -37,7 +37,7 @@ class ReportPresenter
     }
 
     interface ReportView {
-        var report: Report?
+        fun setReport(report: Report?)
         fun showErrorDialog(error: Throwable)
     }
 

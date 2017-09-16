@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import io.reyurnible.android.workrise.presentation.common.toVisible
 import kotlinx.android.synthetic.main.top_activity.*
 import javax.inject.Inject
 
 class TopActivity : AppCompatActivity(), TopPresenter.TopView {
-
     @Inject lateinit var presenter: TopPresenter
     private lateinit var pagerAdapter: TopPagerAdapter
 
@@ -28,9 +26,12 @@ class TopActivity : AppCompatActivity(), TopPresenter.TopView {
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                presenter.selectedPage(position)
+                presenter.changePage(position)
             }
         })
+        backPositionButton.setOnClickListener {
+            presenter.clickBackToday()
+        }
         presenter.initialize(this)
     }
 
@@ -46,6 +47,10 @@ class TopActivity : AppCompatActivity(), TopPresenter.TopView {
 
     override fun setCurrentPosition(position: Int) {
         viewPager.setCurrentItem(position, false)
+    }
+
+    override fun setCurrentPositionStatus(isToday: Boolean) {
+        backPositionButton.visibility = isToday.not().toVisible()
     }
 
 }

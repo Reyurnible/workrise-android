@@ -25,11 +25,6 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     companion object;
 
     private val date: YearMonthDay by bindDate()
-    override var report: Report? = null
-        set(value) {
-            field = value
-            inflateReport(value)
-        }
 
     @Inject lateinit var presenter: ReportPresenter
 
@@ -55,14 +50,7 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
         super.onDestroyView()
     }
 
-    override fun showErrorDialog(error: Throwable) {
-
-    }
-
-    /**
-     * Report表示用のViewの作成
-     */
-    private fun inflateReport(report: Report?) {
+    override fun setReport(report: Report?) {
         report?.run {
             emptyGroup.invisible()
             val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -77,6 +65,10 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
         } ?: let {
             emptyGroup.visible()
         }
+    }
+
+    override fun showErrorDialog(error: Throwable) {
+
     }
 
 }
