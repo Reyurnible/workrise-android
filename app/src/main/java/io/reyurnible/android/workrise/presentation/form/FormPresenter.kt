@@ -4,15 +4,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reyurnible.android.workrise.common.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
+import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import io.reyurnible.android.workrise.domain.repository.ReportRepository
 import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
 import io.reyurnible.android.workrise.usecase.CreateReportUseCase
+import io.reyurnible.android.workrise.usecase.GetReportUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class FormPresenter
 @Inject constructor(
+        private val getReportUseCase: GetReportUseCase,
         private val createReportUseCase: CreateReportUseCase
 ) {
     private var date: YearMonthDay by Delegates.notNull()
@@ -22,6 +26,17 @@ class FormPresenter
     fun initialize(view: FormView, date: YearMonthDay) {
         this.date = date
         this.view = view
+        getReportUseCase.get(id = ReportId(date))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ report ->
+
+                }, { error ->
+                    if (error is ReportRepository.ReportNotExistException) {
+
+                    } else {
+                        view.showErrorDialog(error)
+                    }
+                }).addDisposableToBag(disposableBag)
     }
 
     fun release() {
@@ -29,8 +44,10 @@ class FormPresenter
     }
 
     fun clickSave(formContent: List<FormEditingParam>) {
+        view.showLoadingDialog()
         createReportUseCase.create(ReportEditingParam(date, formContent))
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnEvent { _, _ -> view.hideLoadingDialog() }
                 .subscribe({ report ->
                     view.finish()
                     // view.showReportDetails(report)
@@ -41,9 +58,9 @@ class FormPresenter
 
     interface FormView {
         fun showReportDetails(report: Report)
-        fun finish()
         fun showLoadingDialog()
         fun hideLoadingDialog()
         fun showErrorDialog(error: Throwable)
+        fun finish()
     }
 }
