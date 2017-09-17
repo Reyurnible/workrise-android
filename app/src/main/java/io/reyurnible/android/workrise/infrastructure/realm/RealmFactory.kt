@@ -3,6 +3,7 @@ package io.reyurnible.android.workrise.infrastructure.realm
 import android.app.Application
 import android.content.Context
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -27,7 +28,7 @@ class RealmFactory(context: Context) {
     }
 
     fun createInstance(): Single<Realm> =
-            Single.create { source ->
+            Single.create<Realm> { source ->
                 Realm.getInstanceAsync(config, object : Realm.Callback() {
                     override fun onSuccess(realm: Realm) {
                         source.onSuccess(realm)
@@ -35,8 +36,8 @@ class RealmFactory(context: Context) {
 
                     override fun onError(exception: Throwable) {
                         super.onError(exception)
-                        exception.let(source::onError)
+                        source.onError(exception)
                     }
                 })
-            }
+            }.observeOn(Schedulers.io())
 }
