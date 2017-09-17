@@ -36,8 +36,22 @@ class ReportPresenter
         disposableBag.clear()
     }
 
+    fun clickCreate() {
+        view.showForm(date)
+    }
+
+    fun clickEdit() {
+        view.showForm(date)
+    }
+
+    fun clickShare() {
+        view.showShareMenu()
+    }
+
     interface ReportView {
         fun setReport(report: Report?)
+        fun showForm(date: YearMonthDay)
+        fun showShareMenu()
         fun showErrorDialog(error: Throwable)
     }
 

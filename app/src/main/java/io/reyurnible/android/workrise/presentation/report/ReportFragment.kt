@@ -34,14 +34,24 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.report_fragment, container, false)
+            inflater.inflate(R.layout.report_fragment, container, false).apply {
+                emptyGroup.referencedIds = intArrayOf(R.id.emptyImage, R.id.createButton)
+                // Set Invisible First View
+                reportGroup.invisible()
+                emptyGroup.invisible()
+            }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.initialize(this, date)
-        emptyGroup.referencedIds = intArrayOf(R.id.emptyImage, R.id.createButton)
         createButton.setOnClickListener {
-            startActivity(FormActivity.createIntent(activity, date))
+            presenter.clickCreate()
+        }
+        editButton.setOnClickListener {
+            presenter.clickEdit()
+        }
+        shareButton.setOnClickListener {
+            presenter.clickShare()
         }
     }
 
@@ -52,6 +62,7 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
 
     override fun setReport(report: Report?) {
         report?.run {
+            reportGroup.visible()
             emptyGroup.invisible()
             val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             content.map { form ->
@@ -63,8 +74,17 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
                 reportContainerLayout.addView(view, layoutParams)
             }
         } ?: let {
+            reportGroup.invisible()
             emptyGroup.visible()
         }
+    }
+
+    override fun showForm(date: YearMonthDay) {
+        startActivity(FormActivity.createIntent(activity, date))
+    }
+
+    override fun showShareMenu() {
+
     }
 
     override fun showErrorDialog(error: Throwable) {

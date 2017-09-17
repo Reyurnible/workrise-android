@@ -33,14 +33,14 @@ class FormPresenter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ report ->
                     view.finish()
-                    // view.transitionReportDetails(report)
+                    // view.showReportDetails(report)
                 }, { error ->
                     view.showErrorDialog(error)
                 }).addDisposableToBag(disposableBag)
     }
 
     interface FormView {
-        fun transitionReportDetails(report: Report)
+        fun showReportDetails(report: Report)
         fun finish()
         fun showLoadingDialog()
         fun hideLoadingDialog()

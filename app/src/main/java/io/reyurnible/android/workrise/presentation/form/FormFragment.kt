@@ -54,7 +54,7 @@ class FormFragment : Fragment(), FormPresenter.FormView {
         }
     }
 
-    override fun transitionReportDetails(report: Report) {
+    override fun showReportDetails(report: Report) {
         TODO("not implemented")
     }
 
