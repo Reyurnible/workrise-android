@@ -21,6 +21,9 @@ import io.reyurnible.android.workrise.presentation.form.createIntent
 import kotlinx.android.synthetic.main.report_fragment.*
 import javax.inject.Inject
 
+/**
+ * 日報詳細画面
+ */
 class ReportFragment : Fragment(), ReportPresenter.ReportView {
     companion object;
 

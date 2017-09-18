@@ -7,7 +7,10 @@ import dagger.android.AndroidInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import io.reyurnible.android.workrise.presentation.common.showAsStack
+import io.reyurnible.android.workrise.presentation.common.toDisplay
 import io.reyurnible.android.workrise.presentation.common.toVisible
+import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.top_activity.*
 import javax.inject.Inject
 
@@ -21,6 +24,10 @@ class TopActivity : AppCompatActivity(), TopPresenter.TopView {
         setContentView(R.layout.top_activity)
         pagerAdapter = TopPagerAdapter(supportFragmentManager, applicationContext, dates = emptyList<YearMonthDay>())
         // Setup Views
+        toolbar.run {
+            setSupportActionBar(this)
+            showAsStack(this)
+        }
         viewPager.adapter = pagerAdapter
         tabLayout.setUpWithViewPager(viewPager)
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {

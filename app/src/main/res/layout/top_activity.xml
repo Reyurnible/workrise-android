@@ -7,6 +7,8 @@
     android:background="@color/background_dark"
     tools:context="io.reyurnible.android.workrise.presentation.top.TopActivity">
 
+    <include layout="@layout/layout_header" />
+
     <com.nshmura.recyclertablayout.RecyclerTabLayout
         android:id="@+id/tabLayout"
         rtl_tabBackground="?attr/selectableItemBackground"
@@ -25,7 +27,9 @@
         android:layout_height="48dp"
         android:background="@color/background_light"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="UnknownIdInLayout" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
