@@ -67,7 +67,10 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
             val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             content.map { form ->
                 when (form) {
-                    is Form.CheckList -> ChecklistFormView(context).also { view -> view.form = form }
+                    is Form.CheckList -> ChecklistFormView(context).also { view ->
+                        view.form = form
+                        view.itemCheckedChangeListener = presenter::changeCheckChecklistFormItem
+                    }
                     is Form.Text -> TextFormView(context).also { view -> view.form = form }
                 }
             }.forEach { view ->

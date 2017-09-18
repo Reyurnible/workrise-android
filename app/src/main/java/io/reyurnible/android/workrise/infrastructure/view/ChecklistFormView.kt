@@ -5,10 +5,12 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Form
+import io.reyurnible.android.workrise.domain.model.identifier.CheckItemId
 import kotlinx.android.synthetic.main.view_form_checklist.view.*
 
 /**
@@ -20,6 +22,8 @@ class ChecklistFormView : RelativeLayout {
             field = value
             inflateForm(value)
         }
+
+    var itemCheckedChangeListener: ((CheckItemId, Boolean) -> Unit)? = null
 
     @JvmOverloads
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
@@ -45,6 +49,7 @@ class ChecklistFormView : RelativeLayout {
                 CheckBox(context).apply {
                     isChecked = checkList.checked
                     text = checkList.content
+                    setOnCheckedChangeListener(this@ChecklistFormView::onItemCheckedChange)
                     // タグとしてチェックリストを差し込んでおく
                     tag = checkList.id
                 }
@@ -54,4 +59,9 @@ class ChecklistFormView : RelativeLayout {
         }
     }
 
+    private fun onItemCheckedChange(view: CompoundButton, checked: Boolean) {
+        (view.tag as? CheckItemId)?.let { itemId ->
+            itemCheckedChangeListener?.invoke(itemId, checked)
+        }
+    }
 }

@@ -4,6 +4,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reyurnible.android.workrise.common.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
+import io.reyurnible.android.workrise.domain.model.identifier.CheckItemId
+import io.reyurnible.android.workrise.domain.model.identifier.FormId
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.usecase.GetReportUseCase
@@ -46,6 +48,10 @@ class ReportPresenter
 
     fun clickShare() {
         view.showShareMenu()
+    }
+
+    fun changeCheckChecklistFormItem(checkItemId: CheckItemId, checked: Boolean) {
+
     }
 
     interface ReportView {
