@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="form_setting_title_default_todo">やること</string>
+    <string name="form_setting_title_default_memo">その他、メモ</string>
+    <string name="common_hint_tap_action">タップして入力</string>
+</resources>
