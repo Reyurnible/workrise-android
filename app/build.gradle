@@ -62,6 +62,9 @@ dependencies {
     compile "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    // JsonParser
+    compile "com.squareup.moshi:moshi:$moshi_version"
+    compile "com.squareup.moshi:moshi-kotlin:$moshi_version"
     // UI
     compile("com.nshmura:recyclertablayout:$recycler_tablayout_version") {
         exclude group: 'com.android.support', module: 'appcompat-v7'

@@ -1,6 +1,5 @@
 package io.reyurnible.android.workrise.infrastructure.realm
 
-import android.app.Application
 import android.content.Context
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
