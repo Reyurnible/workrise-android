@@ -7,13 +7,15 @@ import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.CheckItemId
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import io.reyurnible.android.workrise.usecase.checkitem.CheckCheckItemUseCase
 import io.reyurnible.android.workrise.usecase.report.GetReportUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class ReportPresenter
 @Inject constructor(
-        private val getReportUseCase: GetReportUseCase
+        private val getReportUseCase: GetReportUseCase,
+        private val checkCheckItemUseCase: CheckCheckItemUseCase
 ) {
     private var date: YearMonthDay by Delegates.notNull()
     private lateinit var view: ReportPresenter.ReportView
@@ -50,7 +52,15 @@ class ReportPresenter
     }
 
     fun changeCheckChecklistFormItem(checkItemId: CheckItemId, checked: Boolean) {
+        (if (checked) {
+            checkCheckItemUseCase.check(checkItemId)
+        } else {
+            checkCheckItemUseCase.uncheck(checkItemId)
+        }).subscribe({
 
+        }, { error ->
+            view.showErrorDialog(error)
+        }).addDisposableToBag(disposableBag)
     }
 
     interface ReportView {
