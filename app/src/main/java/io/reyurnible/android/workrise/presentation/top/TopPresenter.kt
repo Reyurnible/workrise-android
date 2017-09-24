@@ -5,7 +5,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reyurnible.android.workrise.common.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.usecase.GetDailyReportListUseCase
+import io.reyurnible.android.workrise.usecase.report.GetDailyReportListUseCase
 import java.util.*
 import javax.inject.Inject
 

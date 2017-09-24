@@ -1,4 +1,4 @@
-package io.reyurnible.android.workrise.usecase
+package io.reyurnible.android.workrise.usecase.report
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

@@ -4,6 +4,10 @@ import dagger.Module
 import dagger.Provides
 import io.reyurnible.android.workrise.domain.DomainModule
 import io.reyurnible.android.workrise.domain.repository.ReportRepository
+import io.reyurnible.android.workrise.domain.service.CheckItemCheckService
+import io.reyurnible.android.workrise.usecase.checkitem.CheckCheckItemUseCase
+import io.reyurnible.android.workrise.usecase.checkitem.CheckCheckItemUseCaseImpl
+import io.reyurnible.android.workrise.usecase.report.*
 import javax.inject.Singleton
 
 @Module(includes = arrayOf(DomainModule::class))
@@ -24,4 +28,8 @@ class UseCaseModule {
     fun provideGetReportUseCase(reportRepository: ReportRepository): GetReportUseCase =
             GetReportUseCaseImpl(reportRepository)
 
+    @Singleton
+    @Provides
+    fun provideCheckCheckItemUseCase(checkItemCheckService: CheckItemCheckService): CheckCheckItemUseCase =
+            CheckCheckItemUseCaseImpl(checkItemCheckService)
 }

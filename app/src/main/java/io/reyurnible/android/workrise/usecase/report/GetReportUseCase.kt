@@ -1,4 +1,4 @@
-package io.reyurnible.android.workrise.usecase
+package io.reyurnible.android.workrise.usecase.report
 
 import io.reactivex.Observable
 import io.reactivex.Single

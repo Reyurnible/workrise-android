@@ -9,8 +9,8 @@ import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.domain.repository.ReportRepository
 import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
-import io.reyurnible.android.workrise.usecase.CreateReportUseCase
-import io.reyurnible.android.workrise.usecase.GetReportUseCase
+import io.reyurnible.android.workrise.usecase.report.CreateReportUseCase
+import io.reyurnible.android.workrise.usecase.report.GetReportUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
