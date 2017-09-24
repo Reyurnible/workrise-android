@@ -16,5 +16,5 @@ interface ReportRepository {
 
     fun editReport(param: ReportEditingParam): Single<Report>
 
-    class ReportNotExistException(message: String) : Exception(message)
+    class ReportNotExistException(id: ReportId) : Exception("Report id ${id.value} is not exist.")
 }

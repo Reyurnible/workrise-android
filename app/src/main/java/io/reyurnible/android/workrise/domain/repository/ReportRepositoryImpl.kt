@@ -5,6 +5,10 @@ import io.reactivex.Single
 import io.realm.RealmList
 import io.realm.Sort
 import io.realm.exceptions.RealmException
+import io.reyurnible.android.workrise.common.equalTo
+import io.reyurnible.android.workrise.common.findAllSortedAsync
+import io.reyurnible.android.workrise.common.greaterThan
+import io.reyurnible.android.workrise.common.lessThan
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.Optional
@@ -23,12 +27,12 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                         Single.create<Report> { source ->
                             try {
                                 realm.where(ReportRealmDto::class.java)
-                                        .equalTo("id", id.value.toInteger())
+                                        .equalTo(ReportRealmDto::id, id.value.toInteger())
                                         .findFirst()
                                         ?.let(ReportConverter::convert)
                                         ?.let(source::onSuccess)
                                         // レポートがなかった場合は、ReportNotExistExceptionを返す
-                                        ?: throw ReportRepository.ReportNotExistException("Report id ${id.value.toString()} is not exist.")
+                                        ?: throw ReportRepository.ReportNotExistException(id)
                             } catch (e: ReportRepository.ReportNotExistException) {
                                 source.onError(e)
                             } catch (e: Throwable) {
@@ -45,7 +49,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                         Observable.create<Optional<Report>> { source ->
                             try {
                                 realm.where(ReportRealmDto::class.java)
-                                        .equalTo("id", id.value.toInteger())
+                                        .equalTo(ReportRealmDto::id, id.value.toInteger())
                                         .findAllAsync()
                                         .addChangeListener { dto ->
                                             if (!source.isDisposed) {
@@ -69,15 +73,15 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                             try {
                                 realm.where(ReportRealmDto::class.java)
                                         .apply {
-                                            minId?.let { greaterThan("id", it.value.toInteger()) }
-                                            maxId?.let { lessThan("id", it.value.toInteger()) }
+                                            minId?.let { greaterThan(ReportRealmDto::id, it.value.toInteger()) }
+                                            maxId?.let { lessThan(ReportRealmDto::id, it.value.toInteger()) }
                                         }
                                         .run {
                                             // 下のIDから
                                             if (minId != null) {
-                                                findAllSortedAsync("id", Sort.ASCENDING)
+                                                findAllSortedAsync(ReportRealmDto::id, Sort.ASCENDING)
                                             } else {
-                                                findAllSortedAsync("id", Sort.DESCENDING)
+                                                findAllSortedAsync(ReportRealmDto::id, Sort.DESCENDING)
                                             }
                                         }
                                         .toMutableList()
@@ -101,7 +105,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                         Single.create<ReportRealmDto> { source ->
                             try {
                                 // Execute Transaction
-                                realm.executeTransaction { realm ->
+                                realm.executeTransactionAsync { bgRealm ->
                                     val reportDto = ReportRealmDto(
                                             id = param.date.toInteger(),
                                             date = param.date.toString(),
@@ -111,7 +115,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                         when (formParam) {
                                             is FormEditingParam.Text -> {
                                                 FormRealmDto(
-                                                        id = realm.where(FormRealmDto::class.java).count().apply {
+                                                        id = bgRealm.where(FormRealmDto::class.java).count().apply {
                                                             inc()
                                                         },
                                                         type = FormRealmDto.Type.text,
@@ -123,7 +127,7 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                             }
                                             is FormEditingParam.CheckList -> {
                                                 FormRealmDto(
-                                                        id = realm.where(FormRealmDto::class.java).count().apply {
+                                                        id = bgRealm.where(FormRealmDto::class.java).count().apply {
                                                             inc()
                                                         },
                                                         type = FormRealmDto.Type.checkList,
@@ -134,21 +138,21 @@ class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepos
                                                 ).apply {
                                                     checkItemList.addAll(formParam.content.map { checkItemParam ->
                                                         val checkItemDto = CheckItemRealmDto(
-                                                                id = realm.where(CheckItemRealmDto::class.java).count().apply {
+                                                                id = bgRealm.where(CheckItemRealmDto::class.java).count().apply {
                                                                     inc()
                                                                 },
                                                                 content = checkItemParam.content,
                                                                 checked = checkItemParam.checked
                                                         )
-                                                        realm.copyToRealm(checkItemDto)
+                                                        bgRealm.copyToRealm(checkItemDto)
                                                     })
                                                 }
                                             }
                                         }.run {
-                                            realm.copyToRealm(this)
+                                            bgRealm.copyToRealm(this)
                                         }
                                     })
-                                    realm.copyToRealmOrUpdate(reportDto)
+                                    bgRealm.copyToRealmOrUpdate(reportDto)
                                     source.onSuccess(reportDto)
                                 }
                             } catch (e: RealmException) {
