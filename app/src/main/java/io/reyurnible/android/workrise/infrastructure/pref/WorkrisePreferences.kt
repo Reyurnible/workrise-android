@@ -14,10 +14,6 @@ class WorkrisePreferences(context: Context, private val moshi: Moshi) {
         const val PREF_NAME = "workrise.pref"
     }
 
-    private object Keys {
-        const val reportSetting = "reportSetting"
-    }
-
     private val preferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
     var reportSetting: ReportSetting?
