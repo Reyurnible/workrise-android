@@ -1,5 +1,6 @@
 package io.reyurnible.android.workrise.presentation.form
 
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reyurnible.android.workrise.common.addDisposableToBag
@@ -26,16 +27,17 @@ class FormPresenter
     fun initialize(view: FormView, date: YearMonthDay) {
         this.date = date
         this.view = view
+
         getReportUseCase.get(id = ReportId(date))
                 .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext { error ->
+                    if (error is ReportRepository.ReportNotExistException) Single.never<Report>()
+                    else Single.error<Report>(error)
+                }
                 .subscribe({ report ->
-
+                    // Don't Action
                 }, { error ->
-                    if (error is ReportRepository.ReportNotExistException) {
-
-                    } else {
-                        view.showErrorDialog(error)
-                    }
+                    view.showErrorDialog(error)
                 }).addDisposableToBag(disposableBag)
     }
 

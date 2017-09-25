@@ -57,7 +57,7 @@ class ReportPresenter
         } else {
             checkCheckItemUseCase.uncheck(checkItemId)
         }).subscribe({
-
+            // Don't action
         }, { error ->
             view.showErrorDialog(error)
         }).addDisposableToBag(disposableBag)
