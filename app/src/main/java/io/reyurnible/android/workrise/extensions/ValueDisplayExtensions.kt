@@ -1,4 +1,4 @@
-package io.reyurnible.android.workrise.presentation.common
+package io.reyurnible.android.workrise.extensions
 
 import android.content.Context
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay

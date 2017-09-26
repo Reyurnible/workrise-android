@@ -2,7 +2,7 @@ package io.reyurnible.android.workrise.presentation.top
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reyurnible.android.workrise.common.addDisposableToBag
+import io.reyurnible.android.workrise.extensions.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.usecase.report.GetDailyReportListUseCase

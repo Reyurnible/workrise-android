@@ -12,7 +12,7 @@ import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
-import io.reyurnible.android.workrise.presentation.common.childList
+import io.reyurnible.android.workrise.extensions.childList
 import kotlinx.android.synthetic.main.form_fragment.*
 import javax.inject.Inject
 

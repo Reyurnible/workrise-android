@@ -5,10 +5,10 @@ import io.reactivex.Single
 import io.realm.RealmList
 import io.realm.Sort
 import io.realm.exceptions.RealmException
-import io.reyurnible.android.workrise.common.equalTo
-import io.reyurnible.android.workrise.common.findAllSortedAsync
-import io.reyurnible.android.workrise.common.greaterThan
-import io.reyurnible.android.workrise.common.lessThan
+import io.reyurnible.android.workrise.extensions.equalTo
+import io.reyurnible.android.workrise.extensions.findAllSortedAsync
+import io.reyurnible.android.workrise.extensions.greaterThan
+import io.reyurnible.android.workrise.extensions.lessThan
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.Optional

@@ -7,9 +7,8 @@ import dagger.android.AndroidInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.presentation.common.showAsStack
-import io.reyurnible.android.workrise.presentation.common.toDisplay
-import io.reyurnible.android.workrise.presentation.common.toVisible
+import io.reyurnible.android.workrise.extensions.showAsStack
+import io.reyurnible.android.workrise.extensions.toVisible
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.top_activity.*
 import javax.inject.Inject

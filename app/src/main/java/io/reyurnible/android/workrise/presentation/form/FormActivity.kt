@@ -6,14 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.presentation.common.setContentFragment
-import io.reyurnible.android.workrise.presentation.common.showAsStack
-import io.reyurnible.android.workrise.presentation.common.toDisplay
-import kotlinx.android.synthetic.main.form_activity.*
+import io.reyurnible.android.workrise.extensions.setContentFragment
+import io.reyurnible.android.workrise.extensions.showAsStack
+import io.reyurnible.android.workrise.extensions.toDisplay
 import kotlinx.android.synthetic.main.layout_header.*
 import javax.inject.Inject
 

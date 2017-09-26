@@ -1,4 +1,4 @@
-package io.reyurnible.android.workrise.common
+package io.reyurnible.android.workrise.extensions
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

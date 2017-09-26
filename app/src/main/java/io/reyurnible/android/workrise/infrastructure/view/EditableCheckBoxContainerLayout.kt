@@ -9,9 +9,9 @@ import android.view.KeyEvent
 import android.widget.LinearLayout
 import android.widget.TextView
 import io.reyurnible.android.workrise.domain.repository.param.CheckItemEditingParam
-import io.reyurnible.android.workrise.presentation.common.childList
-import io.reyurnible.android.workrise.presentation.common.isLastIndexChild
-import io.reyurnible.android.workrise.presentation.common.nextOrNullView
+import io.reyurnible.android.workrise.extensions.childList
+import io.reyurnible.android.workrise.extensions.isLastIndexChild
+import io.reyurnible.android.workrise.extensions.nextOrNullView
 import kotlinx.android.synthetic.main.view_editable_checkbox.view.*
 
 class EditableCheckBoxContainerLayout : LinearLayout {

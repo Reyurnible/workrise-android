@@ -14,8 +14,8 @@ import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.infrastructure.view.ChecklistFormView
 import io.reyurnible.android.workrise.infrastructure.view.TextFormView
-import io.reyurnible.android.workrise.presentation.common.invisible
-import io.reyurnible.android.workrise.presentation.common.visible
+import io.reyurnible.android.workrise.extensions.invisible
+import io.reyurnible.android.workrise.extensions.visible
 import io.reyurnible.android.workrise.presentation.form.FormActivity
 import io.reyurnible.android.workrise.presentation.form.createIntent
 import kotlinx.android.synthetic.main.report_fragment.*

@@ -1,7 +1,7 @@
 package io.reyurnible.android.workrise.domain.service
 
 import io.reactivex.Completable
-import io.reyurnible.android.workrise.common.equalTo
+import io.reyurnible.android.workrise.extensions.equalTo
 import io.reyurnible.android.workrise.domain.model.identifier.CheckItemId
 import io.reyurnible.android.workrise.infrastructure.realm.RealmFactory
 import io.reyurnible.android.workrise.infrastructure.realm.dto.CheckItemRealmDto

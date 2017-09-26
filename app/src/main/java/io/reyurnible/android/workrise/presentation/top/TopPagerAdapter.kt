@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.presentation.common.toDisplay
+import io.reyurnible.android.workrise.extensions.toDisplay
 import io.reyurnible.android.workrise.presentation.report.ReportFragment
 import io.reyurnible.android.workrise.presentation.report.createInstance
 
