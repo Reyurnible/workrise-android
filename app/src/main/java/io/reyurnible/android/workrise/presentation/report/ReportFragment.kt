@@ -37,16 +37,16 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.report_fragment, container, false).apply {
-                emptyGroup.referencedIds = intArrayOf(R.id.emptyImage, R.id.createButton)
-                // Set Invisible First View
-                reportGroup.invisible()
-                emptyGroup.invisible()
-            }
+            inflater.inflate(R.layout.report_fragment, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.initialize(this, date)
+        // Set Invisible First View
+        reportGroup.invisible()
+        createButton.invisible()
+        emptyImage.invisible()
+
         createButton.setOnClickListener {
             presenter.clickCreate()
         }
@@ -66,7 +66,8 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     override fun setReport(report: Report?) {
         report?.run {
             reportGroup.visible()
-            emptyGroup.invisible()
+            createButton.invisible()
+            emptyImage.invisible()
             val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             content.map { form ->
                 when (form) {
@@ -81,7 +82,8 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
             }
         } ?: let {
             reportGroup.invisible()
-            emptyGroup.visible()
+            createButton.visible()
+            emptyImage.visible()
         }
     }
 

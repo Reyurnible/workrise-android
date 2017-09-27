@@ -24,6 +24,7 @@ class ReportPresenter
     fun initialize(view: ReportPresenter.ReportView, date: YearMonthDay) {
         this.date = date
         this.view = view
+
         getReportUseCase.bind(id = ReportId(date))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ report ->
@@ -60,6 +61,7 @@ class ReportPresenter
             // Don't action
         }, { error ->
             view.showErrorDialog(error)
+            error.printStackTrace()
         }).addDisposableToBag(disposableBag)
     }
 
