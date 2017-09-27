@@ -27,7 +27,10 @@ class TopActivity : AppCompatActivity(), TopPresenter.TopView {
             setSupportActionBar(this)
             showAsStack(this)
         }
-        viewPager.adapter = pagerAdapter
+        viewPager.apply {
+            adapter = pagerAdapter
+            offscreenPageLimit = 2
+        }
         tabLayout.setUpWithViewPager(viewPager)
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {

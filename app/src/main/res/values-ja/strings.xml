@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Text Resources -->
+    <string name="common_hint_tap_action">タップして入力</string>
     <string name="form_setting_title_default_todo">やること</string>
     <string name="form_setting_title_default_memo">その他、メモ</string>
-    <string name="common_hint_tap_action">タップして入力</string>
+
+    <string name="top_btn_back_day">今日に戻る</string>
+
+    <string name="report_btn_edit">日記の編集</string>
+    <string name="report_btn_create">日記の作成</string>
+    <string name="report_btn_share">シェア</string>
+
+    <string name="form_btn_save">保存する</string>
+
+    <string name="report_setting_btn_add">追加する</string>
 </resources>
