@@ -3,13 +3,13 @@ package io.reyurnible.android.workrise.presentation.form
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reyurnible.android.workrise.extensions.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.domain.repository.ReportRepository
 import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
+import io.reyurnible.android.workrise.extensions.addDisposableToBag
 import io.reyurnible.android.workrise.usecase.report.CreateReportUseCase
 import io.reyurnible.android.workrise.usecase.report.GetReportUseCase
 import javax.inject.Inject
@@ -35,7 +35,8 @@ class FormPresenter
                     else Single.error<Report>(error)
                 }
                 .subscribe({ report ->
-                    // Don't Action
+                    // Edit Form Loading
+                    view.setReport(report)
                 }, { error ->
                     view.showErrorDialog(error)
                 }).addDisposableToBag(disposableBag)
@@ -59,6 +60,7 @@ class FormPresenter
     }
 
     interface FormView {
+        fun setReport(report: Report)
         fun showReportDetails(report: Report)
         fun showLoadingDialog()
         fun hideLoadingDialog()

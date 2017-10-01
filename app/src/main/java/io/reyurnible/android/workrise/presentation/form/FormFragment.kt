@@ -36,9 +36,9 @@ class FormFragment : Fragment(), FormPresenter.FormView {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(this, date)
         // Presenter Injection
         initializeView()
+        presenter.initialize(this, date)
     }
 
     override fun onDestroyView() {
@@ -52,6 +52,10 @@ class FormFragment : Fragment(), FormPresenter.FormView {
             val otherContent = FormEditingParam.Text("その他、メモ", otherContainerLayout.childList().map { it as EditText }.map { it.text.toString() }.first())
             presenter.clickSave(formContent = listOf(todoContent, otherContent))
         }
+    }
+
+    override fun setReport(report: Report) {
+        
     }
 
     override fun showReportDetails(report: Report) {
