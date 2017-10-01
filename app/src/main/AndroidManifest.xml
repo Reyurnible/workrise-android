@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.form.FormActivity" />
+        <activity android:name=".presentation.reportsetting.ReportSettingActivity" />
     </application>
 
 </manifest>
