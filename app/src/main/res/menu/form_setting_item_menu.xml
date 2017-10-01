@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/form_setting_menu_edit"
+        android:title="編集"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/form_setting_menu_delete"
+        android:title="削除"
+        app:showAsAction="never" />
+</menu>

@@ -13,5 +13,7 @@
 
     <string name="form_btn_save">保存する</string>
 
+    <string name="report_setting_title">項目設定</string>
     <string name="report_setting_btn_add">追加する</string>
+    <string name="top_menu_setting">設定</string>
 </resources>
