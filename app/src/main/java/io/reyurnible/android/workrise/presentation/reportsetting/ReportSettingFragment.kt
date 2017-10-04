@@ -44,7 +44,9 @@ class ReportSettingFragment : Fragment(),
     }
 
     private fun initializeView() {
-        adapter = FormSettingAdapter(context, this@ReportSettingFragment)
+        adapter = FormSettingAdapter(context, this@ReportSettingFragment).apply {
+            listener = this@ReportSettingFragment
+        }
         formSettingList.adapter = adapter
         addButton.setOnClickListener {
             presenter.clickAddFormSetting()
@@ -52,22 +54,25 @@ class ReportSettingFragment : Fragment(),
     }
 
     override fun setReportSetting(reportSetting: ReportSetting?) {
-        adapter.listener
-    }
-
-    override fun showErrorDialog(error: Throwable) {
-
+        adapter.apply {
+            clear()
+            reportSetting?.formSettings?.let(this::addAll)
+        }
     }
 
     override fun onItemClickListener(formSetting: FormSetting) {
-
+        presenter.clickFormSettingItem(formSetting)
     }
 
     override fun onItemEditClickListener(formSetting: FormSetting) {
-
+        presenter.clickEditFormSetting(formSetting)
     }
 
     override fun onItemDeleteClickListener(formSetting: FormSetting) {
+        presenter.clickDeleteFormSetting(formSetting)
+    }
+
+    override fun showErrorDialog(error: Throwable) {
 
     }
 
