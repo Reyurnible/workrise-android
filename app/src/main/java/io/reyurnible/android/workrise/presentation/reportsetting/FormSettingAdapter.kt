@@ -25,22 +25,22 @@ class FormSettingAdapter(
                 onEditMenuClickListener = this@FormSettingAdapter::onEditMenuItemClick
                 onDeleteMenuClickListener = this@FormSettingAdapter::onDeleteMenuItemClick
                 setOnClickListener {
-                    listener?.onItemClickListener(getItem(position))
+                    listener?.onItemClicked(getItem(position))
                 }
             }
 
     private fun onEditMenuItemClick(formSetting: FormSetting, view: FormSettingItemView) {
-        listener?.onItemEditClickListener(formSetting)
+        listener?.onItemEditClicked(formSetting)
     }
 
     private fun onDeleteMenuItemClick(formSetting: FormSetting, view: FormSettingItemView) {
-        listener?.onItemDeleteClickListener(formSetting)
+        listener?.onItemDeleteClicked(formSetting)
     }
 
     interface OnFormSettingAdapterListener {
-        fun onItemClickListener(formSetting: FormSetting)
-        fun onItemEditClickListener(formSetting: FormSetting)
-        fun onItemDeleteClickListener(formSetting: FormSetting)
+        fun onItemClicked(formSetting: FormSetting)
+        fun onItemEditClicked(formSetting: FormSetting)
+        fun onItemDeleteClicked(formSetting: FormSetting)
     }
 
     private class FormSettingItemView

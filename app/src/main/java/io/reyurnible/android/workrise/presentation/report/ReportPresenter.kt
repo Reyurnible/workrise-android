@@ -2,11 +2,11 @@ package io.reyurnible.android.workrise.presentation.report
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reyurnible.android.workrise.extensions.addDisposableToBag
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.CheckItemId
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import io.reyurnible.android.workrise.extensions.addDisposableToBag
 import io.reyurnible.android.workrise.usecase.checkitem.CheckCheckItemUseCase
 import io.reyurnible.android.workrise.usecase.report.GetReportUseCase
 import javax.inject.Inject
@@ -33,7 +33,8 @@ class ReportPresenter
                     view.showErrorDialog(error)
                 }, {
 
-                }).addDisposableToBag(disposableBag)
+                })
+                .addDisposableToBag(disposableBag)
     }
 
     fun release() {

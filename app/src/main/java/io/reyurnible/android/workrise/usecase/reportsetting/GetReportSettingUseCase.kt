@@ -7,8 +7,6 @@ import io.reyurnible.android.workrise.domain.model.entity.ReportSetting
  * Getting ReportSetting UseCase
  */
 interface GetReportSettingUseCase {
-    /**
-     *
-     */
+
     fun get(): Single<ReportSetting>
 }

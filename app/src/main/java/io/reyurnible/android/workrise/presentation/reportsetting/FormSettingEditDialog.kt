@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
+import android.widget.EditText
+import android.widget.RadioGroup
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.FormSetting
-import kotlinx.android.synthetic.main.report_setting_dialog_form_setting_edit.*
+import kotlinx.android.synthetic.main.report_setting_dialog_form_setting_edit.view.*
 
 /**
  * Dialog Fragment
@@ -18,10 +20,14 @@ class FormSettingEditDialog : DialogFragment() {
                 FormSettingEditDialog()
     }
 
+    private lateinit var titleEditText: EditText
+    private lateinit var typeRadioGroup: RadioGroup
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
             AlertDialog.Builder(context)
-                    .setView(kotlin.run {
-                        LayoutInflater.from(context).inflate(R.layout.report_setting_dialog_form_setting_edit, null, false)
+                    .setView(LayoutInflater.from(context).inflate(R.layout.report_setting_dialog_form_setting_edit, null, false).apply {
+                        this@FormSettingEditDialog.titleEditText = titleEditText
+                        this@FormSettingEditDialog.typeRadioGroup = typeRadioGroup
                     })
                     .setPositiveButton(R.string.form_setting_dialog_btn_create, { dialog, which ->
                         val formSetting = FormSetting(
@@ -39,7 +45,7 @@ class FormSettingEditDialog : DialogFragment() {
                     })
                     .create()
 
-    val listener: OnFormSettingEditDialogListener?
+    private val listener: OnFormSettingEditDialogListener?
         get() = (parentFragment as? OnFormSettingEditDialogListener) ?:
                 (targetFragment as? OnFormSettingEditDialogListener) ?:
                 (activity as? OnFormSettingEditDialogListener)
