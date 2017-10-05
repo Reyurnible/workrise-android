@@ -6,6 +6,8 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import io.reyurnible.android.workrise.R
+import io.reyurnible.android.workrise.domain.model.entity.FormSetting
+import kotlinx.android.synthetic.main.report_setting_dialog_form_setting_edit.*
 
 /**
  * Dialog Fragment
@@ -17,10 +19,33 @@ class FormSettingEditDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        AlertDialog.Builder(context)
-                .setView(kotlin.run {
-                    LayoutInflater.from(context).inflate()
-                })
-                .setPositiveButton(R.string.form_setting_dialog_btn_create)
-                .create()
+            AlertDialog.Builder(context)
+                    .setView(kotlin.run {
+                        LayoutInflater.from(context).inflate(R.layout.report_setting_dialog_form_setting_edit, null, false)
+                    })
+                    .setPositiveButton(R.string.form_setting_dialog_btn_create, { dialog, which ->
+                        val formSetting = FormSetting(
+                                title = titleEditText.text.toString(),
+                                type = when (typeRadioGroup.checkedRadioButtonId) {
+                                    R.id.typeCheckListButton -> FormSetting.FormType.CheckList
+                                    R.id.typeTextButton -> FormSetting.FormType.Text
+                                    else -> throw IllegalArgumentException("Invalid check radiobutton type.")
+                                }
+                        )
+                        listener?.onFormSettingEditSubmitClicked(this@FormSettingEditDialog, formSetting)
+                    })
+                    .setNegativeButton(R.string.form_setting_dialog_btn_cancel, { dialog, which ->
+                        listener?.onFormSettingEditCancelClicked(this@FormSettingEditDialog)
+                    })
+                    .create()
+
+    val listener: OnFormSettingEditDialogListener?
+        get() = (parentFragment as? OnFormSettingEditDialogListener) ?:
+                (targetFragment as? OnFormSettingEditDialogListener) ?:
+                (activity as? OnFormSettingEditDialogListener)
+
+    interface OnFormSettingEditDialogListener {
+        fun onFormSettingEditSubmitClicked(dialog: FormSettingEditDialog, value: FormSetting)
+        fun onFormSettingEditCancelClicked(dialog: FormSettingEditDialog)
+    }
 }
