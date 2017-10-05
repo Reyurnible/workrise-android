@@ -20,4 +20,6 @@
     <string name="form_setting_dialog_btn_create">作成する</string>
     <string name="form_setting_dialog_btn_edit">編集する</string>
     <string name="form_setting_dialog_btn_cancel">キャンセル</string>
+    <string name="form_setting_type_checklist">チェックリスト</string>
+    <string name="form_setting_type_text">テキスト</string>
 </resources>

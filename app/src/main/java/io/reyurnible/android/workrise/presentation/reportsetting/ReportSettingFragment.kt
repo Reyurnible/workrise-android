@@ -74,8 +74,8 @@ class ReportSettingFragment : Fragment(),
         presenter.clickDeleteFormSetting(formSetting)
     }
 
-    override fun showFormSettingEditDialog() {
-        FormSettingEditDialog.createInstance().show(childFragmentManager, FormSettingEditDialog::class.java.simpleName)
+    override fun showFormSettingEditDialog(editValue: FormSetting?) {
+        FormSettingEditDialog.createInstance(editValue).show(childFragmentManager, FormSettingEditDialog::class.java.simpleName)
     }
 
     override fun showErrorDialog(error: Throwable) {

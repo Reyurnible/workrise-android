@@ -41,12 +41,12 @@ class ReportSettingPresenter
 
     fun clickAddFormSetting() {
         editingFormSetting = null
-        view.showFormSettingEditDialog()
+        view.showFormSettingEditDialog(null)
     }
 
     fun clickEditFormSetting(formSetting: FormSetting) {
         editingFormSetting = formSetting
-        view.showFormSettingEditDialog()
+        view.showFormSettingEditDialog(formSetting)
     }
 
     fun clickDeleteFormSetting(formSetting: FormSetting) {
@@ -68,7 +68,7 @@ class ReportSettingPresenter
 
     interface ReportSettingView {
         fun setFormSettings(formSettings: List<FormSetting>?)
-        fun showFormSettingEditDialog()
+        fun showFormSettingEditDialog(editValue: FormSetting?)
         fun showErrorDialog(error: Throwable)
     }
 

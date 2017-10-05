@@ -60,18 +60,15 @@ class FormSettingAdapter(
 
         init {
             inflate(context, R.layout.report_setting_item_form_setting, this)
-        }
-
-        override fun onFinishInflate() {
-            super.onFinishInflate()
-            menuButton.setOnClickListener {
-                showPopupMenu(menuButton)
-            }
+            menuButton.setOnClickListener { showPopupMenu(it) }
         }
 
         private fun bind(formSetting: FormSetting) {
             titleText.text = formSetting.title
-            typeText.text = formSetting.type.name
+            typeText.setText(when (formSetting.type) {
+                FormSetting.FormType.CheckList -> R.string.form_setting_type_checklist
+                FormSetting.FormType.Text -> R.string.form_setting_type_text
+            })
         }
 
         private fun showPopupMenu(anchor: View) = PopupMenu(anchor.context, anchor).apply {

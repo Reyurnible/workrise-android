@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
+        android:divider="@null"
         android:paddingTop="@dimen/space_normal"
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintLeft_toLeftOf="parent"

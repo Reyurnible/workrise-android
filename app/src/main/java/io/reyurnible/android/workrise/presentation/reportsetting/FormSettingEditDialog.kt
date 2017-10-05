@@ -15,9 +15,21 @@ import kotlinx.android.synthetic.main.report_setting_dialog_form_setting_edit.vi
  * Dialog Fragment
  */
 class FormSettingEditDialog : DialogFragment() {
+    private object Keys {
+        const val title = "title"
+        const val type = "type"
+    }
+
     companion object {
-        fun createInstance(): FormSettingEditDialog =
-                FormSettingEditDialog()
+        fun createInstance(editValue: FormSetting? = null): FormSettingEditDialog =
+                FormSettingEditDialog().apply {
+                    arguments = Bundle().apply {
+                        editValue?.let {
+                            putString(Keys.title, it.title)
+                            putString(Keys.type, it.type.name)
+                        }
+                    }
+                }
     }
 
     private lateinit var titleEditText: EditText
@@ -28,8 +40,13 @@ class FormSettingEditDialog : DialogFragment() {
                     .setView(LayoutInflater.from(context).inflate(R.layout.report_setting_dialog_form_setting_edit, null, false).apply {
                         this@FormSettingEditDialog.titleEditText = titleEditText
                         this@FormSettingEditDialog.typeRadioGroup = typeRadioGroup
+                        titleEditText.setText(arguments.getString(Keys.title, ""))
+                        typeRadioGroup.check(when (FormSetting.FormType.valueOf(arguments.getString(Keys.type, FormSetting.FormType.CheckList.name))) {
+                            FormSetting.FormType.CheckList -> R.id.typeCheckListButton
+                            FormSetting.FormType.Text -> R.id.typeTextButton
+                        })
                     })
-                    .setPositiveButton(R.string.form_setting_dialog_btn_create, { dialog, which ->
+                    .setPositiveButton(R.string.form_setting_dialog_btn_create, { _, _ ->
                         val formSetting = FormSetting(
                                 title = titleEditText.text.toString(),
                                 type = when (typeRadioGroup.checkedRadioButtonId) {
@@ -40,7 +57,7 @@ class FormSettingEditDialog : DialogFragment() {
                         )
                         listener?.onFormSettingEditSubmitClicked(this@FormSettingEditDialog, formSetting)
                     })
-                    .setNegativeButton(R.string.form_setting_dialog_btn_cancel, { dialog, which ->
+                    .setNegativeButton(R.string.form_setting_dialog_btn_cancel, { _, _ ->
                         listener?.onFormSettingEditCancelClicked(this@FormSettingEditDialog)
                     })
                     .create()
