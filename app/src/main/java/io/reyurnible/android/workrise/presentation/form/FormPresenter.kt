@@ -4,6 +4,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reyurnible.android.workrise.domain.model.entity.Report
+import io.reyurnible.android.workrise.domain.model.entity.ReportSetting
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
 import io.reyurnible.android.workrise.domain.repository.ReportRepository
@@ -60,6 +61,7 @@ class FormPresenter
     }
 
     interface FormView {
+        fun setReportSetting(setting: ReportSetting)
         fun setReport(report: Report)
         fun showReportDetails(report: Report)
         fun showLoadingDialog()

@@ -1,73 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_dark"
     android:orientation="vertical">
 
-    <!-- TODO 設定からの追加に変更する -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/space_small"
-        android:paddingEnd="@dimen/space_normal"
-        android:paddingStart="@dimen/space_normal"
-        android:paddingTop="@dimen/space_large"
-        android:text="@string/form_setting_title_default_todo"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        android:textColor="@color/text_primary_light" />
-
-    <io.reyurnible.android.workrise.infrastructure.view.EditableCheckBoxContainerLayout
-        android:id="@+id/todoContainerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_xsmall"
-        android:layout_marginTop="@dimen/space_xsmall"
-        android:background="@color/background_light"
-        android:orientation="vertical" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_normal"
-        android:paddingBottom="@dimen/space_xsmall"
-        android:paddingEnd="@dimen/space_normal"
-        android:paddingStart="@dimen/space_normal"
-        android:paddingTop="@dimen/space_large"
-        android:text="@string/form_setting_title_default_memo"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        android:textColor="@color/text_primary_light" />
-
     <LinearLayout
-        android:id="@+id/otherContainerLayout"
-        android:layout_width="match_parent"
+        android:id="@+id/formContainerLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/background_light"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/space_xsmall"
-        android:paddingTop="@dimen/space_xsmall">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:gravity="start|top"
-            android:hint="@string/common_hint_tap_action"
-            android:lines="3"
-            android:paddingBottom="@dimen/space_xsmall"
-            android:paddingEnd="@dimen/space_xsmall"
-            android:paddingStart="@dimen/space_xsmall"
-            android:paddingTop="@dimen/space_xsmall" />
-
-    </LinearLayout>
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+    
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_xlarge"
         android:background="@color/theme_accent"
         android:text="@string/form_btn_save"
-        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/formContainerLayout" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

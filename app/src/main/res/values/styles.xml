@@ -18,4 +18,34 @@
         <item name="android:background">@color/divider</item>
     </style>
 
+    <!-- Form -->
+    <style name="AppTheme.Widget.Form" />
+
+    <style name="AppTheme.Widget.Form.TitleSection">
+        <item name="android:paddingBottom">@dimen/space_xsmall</item>
+        <item name="android:paddingEnd">@dimen/space_normal</item>
+        <item name="android:paddingStart">@dimen/space_normal</item>
+        <item name="android:paddingTop">@dimen/space_large</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium.Inverse</item>
+        <item name="android:textColor">@color/text_primary_light</item>
+    </style>
+
+    <style name="AppTheme.Widget.Form.CheckBoxContainer">
+        <item name="android:paddingBottom">@dimen/space_xsmall</item>
+        <item name="android:paddingTop">@dimen/space_xsmall</item>
+        <item name="android:background">@color/background_light</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AppTheme.Widget.Form.Text">
+        <item name="android:background">@color/background_light</item>
+        <item name="android:gravity">start|top</item>
+        <item name="android:hint">@string/common_hint_tap_action</item>
+        <item name="android:lines">3</item>
+        <item name="android:paddingBottom">@dimen/space_xsmall</item>
+        <item name="android:paddingEnd">@dimen/space_xsmall</item>
+        <item name="android:paddingStart">@dimen/space_xsmall</item>
+        <item name="android:paddingTop">@dimen/space_xsmall</item>
+    </style>
+
 </resources>
