@@ -13,11 +13,13 @@ import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
 import io.reyurnible.android.workrise.extensions.addDisposableToBag
 import io.reyurnible.android.workrise.usecase.report.CreateReportUseCase
 import io.reyurnible.android.workrise.usecase.report.GetReportUseCase
+import io.reyurnible.android.workrise.usecase.reportsetting.GetReportSettingUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class FormPresenter
 @Inject constructor(
+        private val getReportSettingUseCase: GetReportSettingUseCase,
         private val getReportUseCase: GetReportUseCase,
         private val createReportUseCase: CreateReportUseCase
 ) {
@@ -28,18 +30,10 @@ class FormPresenter
     fun initialize(view: FormView, date: YearMonthDay) {
         this.date = date
         this.view = view
-
-        getReportUseCase.get(id = ReportId(date))
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext { error ->
-                    if (error is ReportRepository.ReportNotExistException) Single.never<Report>()
-                    else Single.error<Report>(error)
-                }
-                .subscribe({ report ->
-                    // Edit Form Loading
-                    view.setReport(report)
-                }, { error ->
-                    view.showErrorDialog(error)
+        getReportUseCase.exist(id = ReportId(date))
+                .subscribe({ exist ->
+                    if (exist) loadReport()
+                    else loadReportSetting()
                 }).addDisposableToBag(disposableBag)
     }
 
@@ -52,12 +46,30 @@ class FormPresenter
         createReportUseCase.create(ReportEditingParam(date, formContent))
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnEvent { _, _ -> view.hideLoadingDialog() }
-                .subscribe({ report ->
+                .subscribe({
                     view.finish()
                     // view.showReportDetails(report)
                 }, { error ->
                     view.showErrorDialog(error)
                 }).addDisposableToBag(disposableBag)
+    }
+
+    private fun loadReportSetting() {
+        getReportSettingUseCase.get()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(view::setReportSetting, view::showErrorDialog)
+                .addDisposableToBag(disposableBag)
+    }
+
+    private fun loadReport() {
+        getReportUseCase.get(id = ReportId(date))
+                .onErrorResumeNext { error ->
+                    if (error is ReportRepository.ReportNotExistException) Single.never<Report>()
+                    else Single.error<Report>(error)
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(view::setReport, view::showErrorDialog)
+                .addDisposableToBag(disposableBag)
     }
 
     interface FormView {

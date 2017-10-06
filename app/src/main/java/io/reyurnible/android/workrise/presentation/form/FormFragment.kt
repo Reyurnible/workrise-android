@@ -68,14 +68,17 @@ class FormFragment : Fragment(), FormPresenter.FormView {
     }
 
     override fun setReportSetting(setting: ReportSetting) {
+        val inflater = LayoutInflater.from(activity)
         val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         formContainerLayout.apply {
             removeAllViews()
             setting.formSettings.forEach {
-                addView(TextView(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_TitleSection)), layoutParams)
+                addView(TextView(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_TitleSection)).apply {
+                    text = it.title
+                }, layoutParams)
                 addView(when (it.type) {
-                    FormSetting.FormType.CheckList -> EditableCheckBoxContainerLayout(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_CheckBoxContainer))
-                    FormSetting.FormType.Text -> EditText(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_Text))
+                    FormSetting.FormType.CheckList -> inflater.inflate(R.layout.form_layout_edit_checkbox_container, null)
+                    FormSetting.FormType.Text -> inflater.inflate(R.layout.form_layout_edit_text, null)
                 }.apply {
                     tag = it.title
                 }, layoutParams)
@@ -84,16 +87,17 @@ class FormFragment : Fragment(), FormPresenter.FormView {
     }
 
     override fun setReport(report: Report) {
+        val inflater = LayoutInflater.from(activity)
         val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         formContainerLayout.apply {
             removeAllViews()
             report.content.forEach {
                 addView(TextView(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_TitleSection)), layoutParams)
                 addView(when (it) {
-                    is Form.CheckList -> EditableCheckBoxContainerLayout(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_CheckBoxContainer)).apply {
+                    is Form.CheckList -> (inflater.inflate(R.layout.form_layout_edit_checkbox_container, null) as EditableCheckBoxContainerLayout).apply {
                         checkItems = it.content.map { CheckItemEditingParam(it.content, it.checked) }
                     }
-                    is Form.Text -> EditText(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_Text)).apply {
+                    is Form.Text -> (inflater.inflate(R.layout.form_layout_edit_text, null) as EditText).apply {
                         setText(it.content)
                     }
                 }.apply {
