@@ -8,6 +8,9 @@ import io.reyurnible.android.workrise.domain.model.value.Optional
 import io.reyurnible.android.workrise.domain.repository.ReportRepository
 
 class GetReportUseCaseImpl(private val reportRepository: ReportRepository) : GetReportUseCase {
+    override fun exist(id: ReportId): Single<Boolean> =
+            reportRepository.existReport(id)
+
     override fun get(id: ReportId): Single<Report> =
             reportRepository.fetchReport(id)
 

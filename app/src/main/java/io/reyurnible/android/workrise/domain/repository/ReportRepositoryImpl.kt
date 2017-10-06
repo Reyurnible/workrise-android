@@ -5,21 +5,39 @@ import io.reactivex.Single
 import io.realm.RealmList
 import io.realm.Sort
 import io.realm.exceptions.RealmException
-import io.reyurnible.android.workrise.extensions.equalTo
-import io.reyurnible.android.workrise.extensions.findAllSortedAsync
-import io.reyurnible.android.workrise.extensions.greaterThan
-import io.reyurnible.android.workrise.extensions.lessThan
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.Optional
 import io.reyurnible.android.workrise.domain.repository.param.FormEditingParam
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
+import io.reyurnible.android.workrise.extensions.equalTo
+import io.reyurnible.android.workrise.extensions.findAllSortedAsync
+import io.reyurnible.android.workrise.extensions.greaterThan
+import io.reyurnible.android.workrise.extensions.lessThan
 import io.reyurnible.android.workrise.infrastructure.realm.RealmFactory
 import io.reyurnible.android.workrise.infrastructure.realm.dto.CheckItemRealmDto
 import io.reyurnible.android.workrise.infrastructure.realm.dto.FormRealmDto
 import io.reyurnible.android.workrise.infrastructure.realm.dto.ReportRealmDto
 
 class ReportRepositoryImpl(private val realmFactory: RealmFactory) : ReportRepository {
+
+    override fun existReport(id: ReportId): Single<Boolean> =
+            realmFactory.createInstance()
+                    .flatMap { realm ->
+                        Single.create<Boolean> { source ->
+                            try {
+                                realm.where(ReportRealmDto::class.java)
+                                        .equalTo(ReportRealmDto::id, id.value.toInteger())
+                                        .findFirst()
+                                        ?.let { source.onSuccess(true) }
+                                        ?: let { source.onSuccess(false) }
+                            } catch (e: Throwable) {
+                                source.onError(e)
+                            } finally {
+                                realm.close()
+                            }
+                        }
+                    }
 
     override fun fetchReport(id: ReportId): Single<Report> =
             realmFactory.createInstance()

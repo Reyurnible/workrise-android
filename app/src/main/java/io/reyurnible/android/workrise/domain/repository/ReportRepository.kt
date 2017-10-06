@@ -8,6 +8,8 @@ import io.reyurnible.android.workrise.domain.model.value.Optional
 import io.reyurnible.android.workrise.domain.repository.param.ReportEditingParam
 
 interface ReportRepository {
+    fun existReport(id: ReportId): Single<Boolean>
+
     fun fetchReport(id: ReportId): Single<Report>
 
     fun observeReport(id: ReportId): Observable<Optional<Report>>

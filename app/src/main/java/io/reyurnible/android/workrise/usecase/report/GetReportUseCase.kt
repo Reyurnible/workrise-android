@@ -13,6 +13,10 @@ interface GetReportUseCase {
     /**
      * @param id -> report id
      */
+    fun exist(id: ReportId): Single<Boolean>
+    /**
+     * @param id -> report id
+     */
     fun get(id: ReportId): Single<Report>
 
     /**
