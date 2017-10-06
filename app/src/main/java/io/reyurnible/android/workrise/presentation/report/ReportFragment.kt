@@ -12,10 +12,10 @@ import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Form
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.infrastructure.view.ChecklistFormView
-import io.reyurnible.android.workrise.infrastructure.view.TextFormView
 import io.reyurnible.android.workrise.extensions.invisible
 import io.reyurnible.android.workrise.extensions.visible
+import io.reyurnible.android.workrise.infrastructure.view.ChecklistFormView
+import io.reyurnible.android.workrise.infrastructure.view.TextFormView
 import io.reyurnible.android.workrise.presentation.form.FormActivity
 import io.reyurnible.android.workrise.presentation.form.createIntent
 import kotlinx.android.synthetic.main.report_fragment.*
@@ -64,22 +64,12 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     }
 
     override fun setReport(report: Report?) {
-        report?.run {
+        report?.let {
             reportGroup.visible()
             createButton.invisible()
             emptyImage.invisible()
-            val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            content.map { form ->
-                when (form) {
-                    is Form.CheckList -> ChecklistFormView(context).also { view ->
-                        view.form = form
-                        view.itemCheckedChangeListener = presenter::changeCheckChecklistFormItem
-                    }
-                    is Form.Text -> TextFormView(context).also { view -> view.form = form }
-                }
-            }.forEach { view ->
-                reportContainerLayout.addView(view, layoutParams)
-            }
+            // Set report content
+            setReportContent(it.content)
         } ?: let {
             reportGroup.invisible()
             createButton.visible()
@@ -97,6 +87,22 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
 
     override fun showErrorDialog(error: Throwable) {
 
+    }
+
+    private fun setReportContent(content: List<Form>) {
+        reportContainerLayout.removeAllViews()
+        val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        content.map { form ->
+            when (form) {
+                is Form.CheckList -> ChecklistFormView(context).also { view ->
+                    view.form = form
+                    view.itemCheckedChangeListener = presenter::changeCheckChecklistFormItem
+                }
+                is Form.Text -> TextFormView(context).also { view -> view.form = form }
+            }
+        }.forEach { view ->
+            reportContainerLayout.addView(view, layoutParams)
+        }
     }
 
 }
