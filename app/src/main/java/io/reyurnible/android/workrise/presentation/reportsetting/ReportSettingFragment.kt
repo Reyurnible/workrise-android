@@ -4,9 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.FormSetting
@@ -30,6 +28,11 @@ class ReportSettingFragment : Fragment(),
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.report_setting_fragment, container, false)
 
@@ -38,6 +41,20 @@ class ReportSettingFragment : Fragment(),
         initializeView()
         presenter.initialize(this)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.report_setting_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean =
+            when (item?.itemId) {
+                R.id.report_setting_menu_submit -> {
+                    presenter.clickSubmitReportSetting()
+                    true
+                }
+                else -> false
+            }
 
     override fun onDestroyView() {
         presenter.release()
@@ -72,6 +89,10 @@ class ReportSettingFragment : Fragment(),
 
     override fun onItemDeleteClicked(formSetting: FormSetting) {
         presenter.clickDeleteFormSetting(formSetting)
+    }
+
+    override fun finish() {
+        activity?.finish()
     }
 
     override fun showFormSettingEditDialog(editValue: FormSetting?) {

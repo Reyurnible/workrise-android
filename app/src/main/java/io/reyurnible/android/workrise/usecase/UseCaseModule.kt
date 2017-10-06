@@ -9,6 +9,8 @@ import io.reyurnible.android.workrise.domain.service.CheckItemCheckService
 import io.reyurnible.android.workrise.usecase.checkitem.CheckCheckItemUseCase
 import io.reyurnible.android.workrise.usecase.checkitem.CheckCheckItemUseCaseImpl
 import io.reyurnible.android.workrise.usecase.report.*
+import io.reyurnible.android.workrise.usecase.reportsetting.EditReportSettingUseCase
+import io.reyurnible.android.workrise.usecase.reportsetting.EditReportSettingUseCaseImpl
 import io.reyurnible.android.workrise.usecase.reportsetting.GetReportSettingUseCase
 import io.reyurnible.android.workrise.usecase.reportsetting.GetReportSettingUseCaseImpl
 import javax.inject.Singleton
@@ -30,6 +32,11 @@ class UseCaseModule {
     @Provides
     fun provideGetReportUseCase(reportRepository: ReportRepository): GetReportUseCase =
             GetReportUseCaseImpl(reportRepository)
+
+    @Singleton
+    @Provides
+    fun provideEditReportSettingUseCase(reportSettingRepository: ReportSettingRepository): EditReportSettingUseCase =
+            EditReportSettingUseCaseImpl(reportSettingRepository)
 
     @Singleton
     @Provides

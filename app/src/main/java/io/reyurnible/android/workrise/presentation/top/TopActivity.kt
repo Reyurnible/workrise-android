@@ -9,7 +9,6 @@ import dagger.android.AndroidInjection
 import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
-import io.reyurnible.android.workrise.extensions.showAsStack
 import io.reyurnible.android.workrise.extensions.toVisible
 import io.reyurnible.android.workrise.presentation.reportsetting.ReportSettingActivity
 import io.reyurnible.android.workrise.presentation.reportsetting.createInstance
@@ -29,7 +28,6 @@ class TopActivity : AppCompatActivity(), TopPresenter.TopView {
         // Setup Views
         toolbar.run {
             setSupportActionBar(this)
-            showAsStack(this)
         }
         viewPager.apply {
             adapter = pagerAdapter

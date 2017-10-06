@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Text Resources -->
     <string name="common_hint_tap_action">タップして入力</string>
@@ -15,5 +14,15 @@
 
     <string name="report_setting_title">項目設定</string>
     <string name="report_setting_btn_add">追加する</string>
+    <string name="report_setting_menu_submit">完了</string>
+
     <string name="top_menu_setting">設定</string>
+
+    <string name="form_setting_dialog_btn_create">作成する</string>
+    <string name="form_setting_dialog_btn_edit">編集する</string>
+    <string name="form_setting_dialog_btn_cancel">キャンセル</string>
+    <string name="form_setting_type_checklist">チェックリスト</string>
+    <string name="form_setting_type_text">テキスト</string>
+    <string name="form_setting_menu_edit">編集</string>
+    <string name="form_setting_menu_delete">削除</string>
 </resources>
