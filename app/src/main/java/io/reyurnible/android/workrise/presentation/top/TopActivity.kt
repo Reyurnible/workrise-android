@@ -15,9 +15,7 @@ class TopActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.top_activity)
         // Setup Views
-        toolbar.run {
-            setSupportActionBar(this)
-        }
+        setSupportActionBar(toolbar)
         savedInstanceState ?: setContentFragment(R.id.containerLayout, TopFragment.createInstance())
     }
 

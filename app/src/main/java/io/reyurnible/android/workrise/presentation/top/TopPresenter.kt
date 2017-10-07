@@ -1,5 +1,6 @@
 package io.reyurnible.android.workrise.presentation.top
 
+import android.support.annotation.IntRange
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reyurnible.android.workrise.extensions.addDisposableToBag
@@ -42,6 +43,8 @@ class TopPresenter
         }
         // 今日の日付かどうかのステータスをセットする
         view.setCurrentPositionStatus(dailyReportList[position].first == today)
+        // 月をセットする
+        view.setTitle(dailyReportList[position].first.month)
     }
 
     fun clickBackToday() {
@@ -109,6 +112,7 @@ class TopPresenter
 
     interface TopView {
         fun setDailyReportList(dailyReportList: List<Pair<YearMonthDay, Report?>>)
+        fun setTitle(@IntRange(from = 1, to = 12) month: Int)
         fun setCurrentPosition(position: Int, animate: Boolean = false)
         fun setCurrentPositionStatus(isToday: Boolean)
     }

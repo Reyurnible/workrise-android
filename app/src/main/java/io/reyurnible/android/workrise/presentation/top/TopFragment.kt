@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.view.*
 import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
@@ -67,6 +68,10 @@ class TopFragment : Fragment(), TopPresenter.TopView {
     override fun setDailyReportList(dailyReportList: List<Pair<YearMonthDay, Report?>>) {
         pagerAdapter.dates = dailyReportList.map { it.first }
         pagerAdapter.notifyDataSetChanged()
+    }
+
+    override fun setTitle(month: Int) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = context.resources.getStringArray(R.array.top_titles)[month - 1]
     }
 
     override fun setCurrentPosition(position: Int, animate: Boolean) {
