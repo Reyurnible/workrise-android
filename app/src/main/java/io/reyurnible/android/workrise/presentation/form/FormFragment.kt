@@ -92,7 +92,9 @@ class FormFragment : Fragment(), FormPresenter.FormView {
         formContainerLayout.apply {
             removeAllViews()
             report.content.forEach {
-                addView(TextView(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_TitleSection)), layoutParams)
+                addView(TextView(ContextThemeWrapper(activity, R.style.AppTheme_Widget_Form_TitleSection)).apply {
+                    text = it.title
+                }, layoutParams)
                 addView(when (it) {
                     is Form.CheckList -> (inflater.inflate(R.layout.form_layout_edit_checkbox_container, null) as EditableCheckBoxContainerLayout).apply {
                         checkItems = it.content.map { CheckItemEditingParam(it.content, it.checked) }
