@@ -1,7 +1,9 @@
 package io.reyurnible.android.workrise.extensions
 
 import android.content.Context
+import io.reyurnible.android.workrise.R
 import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
+import java.util.*
 
 /**
  * ValueObject Display Extension
@@ -10,5 +12,4 @@ import io.reyurnible.android.workrise.domain.model.value.YearMonthDay
  * @link YearMonthDay.kt
  */
 fun YearMonthDay.toDisplay(context: Context) =
-        // FIXME replace to resources
-        "${month}月${day}日"
+        context.getString(R.string.top_pager_title, day, context.resources.getStringArray(R.array.top_pager_weeks)[toCalendar().get(Calendar.DAY_OF_WEEK) - 1])

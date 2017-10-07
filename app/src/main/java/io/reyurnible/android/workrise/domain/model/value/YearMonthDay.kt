@@ -47,4 +47,6 @@ data class YearMonthDay(
     fun toInteger(): Int = (year * 10000 + month * 100 + day)
 
     fun toDate(): Date = simpleDateFormat.parse(toString())
+
+    fun toCalendar(): Calendar = Calendar.getInstance().apply { set(year, month - 1, day) }
 }
