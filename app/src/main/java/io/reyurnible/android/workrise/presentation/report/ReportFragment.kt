@@ -44,6 +44,7 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
         presenter.initialize(this, date)
         // Set Invisible First View
         reportGroup.invisible()
+        shareButton.invisible()
         createButton.invisible()
         emptyImage.invisible()
 
@@ -66,12 +67,14 @@ class ReportFragment : Fragment(), ReportPresenter.ReportView {
     override fun setReport(report: Report?) {
         report?.let {
             reportGroup.visible()
+            shareButton.visible()
             createButton.invisible()
             emptyImage.invisible()
             // Set report content
             setReportContent(it.content)
         } ?: let {
             reportGroup.invisible()
+            shareButton.invisible()
             createButton.visible()
             emptyImage.visible()
         }
