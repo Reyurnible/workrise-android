@@ -15,5 +15,8 @@ abstract class TopModule {
     abstract fun bindTopPresenter(presenter: TopPresenter): TopPresenter
 
     @ContributesAndroidInjector
+    abstract fun contributeTopFragment(): TopFragment
+
+    @ContributesAndroidInjector
     abstract fun contributeTopActivity(): TopActivity
 }

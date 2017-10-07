@@ -61,16 +61,6 @@ class ReportSettingFragment : Fragment(),
         super.onDestroyView()
     }
 
-    private fun initializeView() {
-        adapter = FormSettingAdapter(context, this@ReportSettingFragment).apply {
-            listener = this@ReportSettingFragment
-        }
-        formSettingList.adapter = adapter
-        addButton.setOnClickListener {
-            presenter.clickAddFormSetting()
-        }
-    }
-
     override fun setFormSettings(formSettings: List<FormSetting>?) {
         Log.d(ReportSettingFragment::class.java.simpleName, "setFormSettings(${formSettings?.size})")
         adapter.apply {
@@ -109,6 +99,16 @@ class ReportSettingFragment : Fragment(),
 
     override fun onFormSettingEditCancelClicked(dialog: FormSettingEditDialog) {
 
+    }
+
+    private fun initializeView() {
+        adapter = FormSettingAdapter(context, this@ReportSettingFragment).apply {
+            listener = this@ReportSettingFragment
+        }
+        formSettingList.adapter = adapter
+        addButton.setOnClickListener {
+            presenter.clickAddFormSetting()
+        }
     }
 
 }

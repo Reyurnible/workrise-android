@@ -46,7 +46,7 @@ class TopPresenter
 
     fun clickBackToday() {
         if (dailyReportList.isNotEmpty()) {
-            view.setCurrentPosition(dailyReportList.lastIndex)
+            view.setCurrentPosition(dailyReportList.lastIndex, true)
         }
     }
 
@@ -109,7 +109,7 @@ class TopPresenter
 
     interface TopView {
         fun setDailyReportList(dailyReportList: List<Pair<YearMonthDay, Report?>>)
-        fun setCurrentPosition(position: Int)
+        fun setCurrentPosition(position: Int, animate: Boolean = false)
         fun setCurrentPositionStatus(isToday: Boolean)
     }
 
