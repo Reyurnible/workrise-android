@@ -42,13 +42,12 @@ class FormPresenter
     }
 
     fun clickSave(formContent: List<FormEditingParam>) {
-        view.showLoadingDialog()
+        view.lockSaveButton()
         createReportUseCase.create(ReportEditingParam(date, formContent))
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnEvent { _, _ -> view.hideLoadingDialog() }
+                .doOnEvent { _, _ -> view.unlockSaveButton() }
                 .subscribe({
                     view.finish()
-                    // view.showReportDetails(report)
                 }, { error ->
                     view.showErrorDialog(error)
                 }).addDisposableToBag(disposableBag)
@@ -75,9 +74,8 @@ class FormPresenter
     interface FormView {
         fun setReportSetting(setting: ReportSetting)
         fun setReport(report: Report)
-        fun showReportDetails(report: Report)
-        fun showLoadingDialog()
-        fun hideLoadingDialog()
+        fun lockSaveButton()
+        fun unlockSaveButton()
         fun showErrorDialog(error: Throwable)
         fun finish()
     }

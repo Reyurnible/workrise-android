@@ -107,10 +107,6 @@ class FormFragment : Fragment(), FormPresenter.FormView {
         }
     }
 
-    override fun showReportDetails(report: Report) {
-        TODO("not implemented")
-    }
-
     override fun finish() {
         activity.finish()
     }
@@ -119,11 +115,11 @@ class FormFragment : Fragment(), FormPresenter.FormView {
         error.printStackTrace()
     }
 
-    override fun showLoadingDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun lockSaveButton() {
+        saveButton.isEnabled = false
     }
 
-    override fun hideLoadingDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun unlockSaveButton() {
+        saveButton.isEnabled = true
     }
 }
