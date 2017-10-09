@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/space_large"
+    android:paddingStart="@dimen/space_large"
+    tools:context="io.reyurnible.android.workrise.presentation.top.TopActivity">
+
+    <TextView
+        android:id="@+id/weekOfDayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/text_primary_dark"
+        tools:text="月" />
+
+    <TextView
+        android:id="@+id/monthOfDayText"
+        android:layout_width="@dimen/size_xsmall"
+        android:layout_height="@dimen/size_xsmall"
+        android:layout_marginTop="@dimen/space_xxsmall"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/text_primary_dark"
+        tools:background="@drawable/top_tab_selected"
+        tools:text="99"
+        tools:textColor="@color/text_primary_light" />
+
+</LinearLayout>

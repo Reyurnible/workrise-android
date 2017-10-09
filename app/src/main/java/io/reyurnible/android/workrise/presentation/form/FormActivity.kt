@@ -30,7 +30,7 @@ class FormActivity : AppCompatActivity(), HasSupportFragmentInjector {
         toolbar.run {
             setSupportActionBar(this)
             showAsStack(this)
-            title = date.toDisplay(this@FormActivity)
+            title = date.toDisplay(context)
         }
     }
 

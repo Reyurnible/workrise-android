@@ -5,21 +5,7 @@
     <string name="form_setting_title_default_todo">やること</string>
     <string name="form_setting_title_default_memo">その他、メモ</string>
 
-    <string-array name="top_titles">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
-    <string name="top_pager_title">%d日(%s)</string>
+    <string name="top_sub_title">%1$d年%2$d月</string>
     <string-array name="top_pager_weeks">
         <item>SUN</item>
         <item>MON</item>

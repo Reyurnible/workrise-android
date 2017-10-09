@@ -1,10 +1,24 @@
 <resources>
+    <string name="app_name">Workrise</string>
     <!-- Text Resources -->
     <string name="common_hint_tap_action">タップして入力</string>
     <string name="form_setting_title_default_todo">やること</string>
     <string name="form_setting_title_default_memo">その他、メモ</string>
 
+    <string name="top_sub_title">%1$d年%2$d月</string>
+    <string-array name="top_pager_weeks">
+        <item>SUN</item>
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WED</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+    </string-array>
+
     <string name="top_btn_back_day">今日に戻る</string>
+    <string name="top_menu_setting">設定</string>
+
 
     <string name="report_btn_edit">日記の編集</string>
     <string name="report_btn_create">日記の作成</string>
@@ -15,8 +29,6 @@
     <string name="report_setting_title">項目設定</string>
     <string name="report_setting_btn_add">追加する</string>
     <string name="report_setting_menu_submit">完了</string>
-
-    <string name="top_menu_setting">設定</string>
 
     <string name="form_setting_dialog_btn_create">作成する</string>
     <string name="form_setting_dialog_btn_edit">編集する</string>

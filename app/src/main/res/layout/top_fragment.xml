@@ -7,26 +7,33 @@
     android:background="@color/background_dark"
     tools:context="io.reyurnible.android.workrise.presentation.top.TopActivity">
 
-    <com.nshmura.recyclertablayout.RecyclerTabLayout
-        android:id="@+id/tabLayout"
-        rtl_tabBackground="?attr/selectableItemBackground"
-        rtl_tabIndicatorColor="?attr/colorAccent"
-        rtl_tabIndicatorHeight="2dp"
-        rtl_tabMaxWidth="264dp"
-        rtl_tabMinWidth="72dp"
-        rtl_tabPadding="0dp"
-        rtl_tabPaddingBottom="0dp"
-        rtl_tabPaddingEnd="@dimen/space_large"
-        rtl_tabPaddingStart="@dimen/space_large"
-        rtl_tabPaddingTop="0dp"
-        rtl_tabSelectedTextColor="?android:textColorPrimary"
-        rtl_tabTextAppearance="@android:style/TextAppearance.Small"
+    <TextView
+        android:id="@+id/yearMonthText"
         android:layout_width="0dp"
-        android:layout_height="@dimen/size_normal"
+        android:layout_height="wrap_content"
         android:background="@color/background_light"
+        android:gravity="center"
+        android:paddingTop="@dimen/space_xsmall"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/text_primary_dark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:text="2017年10月" />
+
+    <com.nshmura.recyclertablayout.RecyclerTabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background_light"
+        android:paddingBottom="@dimen/space_xsmall"
+        android:paddingTop="@dimen/space_xxsmall"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yearMonthText"
+        app:rtl_tabIndicatorColor="@android:color/transparent"
+        app:rtl_tabIndicatorHeight="0dp"
+        app:rtl_tabSelectedTextColor="?android:textColorPrimary"
         tools:ignore="UnknownIdInLayout" />
 
     <android.support.v4.view.ViewPager

@@ -12,6 +12,7 @@
     <dimen name="space_xxxlarge">32dp</dimen>
     <!-- Size -->
     <!-- normal + {small(-8) / large(+8)} * x -->
+    <dimen name="size_xxsmall">24dp</dimen>
     <dimen name="size_xsmall">32dp</dimen>
     <dimen name="size_small">40dp</dimen>
     <dimen name="size_normal">48dp</dimen>

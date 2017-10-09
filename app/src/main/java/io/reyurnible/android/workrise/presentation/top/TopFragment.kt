@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.*
 import dagger.android.support.AndroidSupportInjection
 import io.reyurnible.android.workrise.R
@@ -23,6 +22,7 @@ class TopFragment : Fragment(), TopPresenter.TopView {
     companion object;
 
     @Inject lateinit var presenter: TopPresenter
+    private lateinit var tabAdapter: TopTabAdapter
     private lateinit var pagerAdapter: TopPagerAdapter
 
     override fun onAttach(context: Context?) {
@@ -33,7 +33,6 @@ class TopFragment : Fragment(), TopPresenter.TopView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        pagerAdapter = TopPagerAdapter(fragmentManager, context, dates = emptyList<YearMonthDay>())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -66,12 +65,16 @@ class TopFragment : Fragment(), TopPresenter.TopView {
     }
 
     override fun setDailyReportList(dailyReportList: List<Pair<YearMonthDay, Report?>>) {
-        pagerAdapter.dates = dailyReportList.map { it.first }
+        dailyReportList.map { it.first }.let { dates ->
+            pagerAdapter.dates = dates
+            tabAdapter.dates = dates
+        }
         pagerAdapter.notifyDataSetChanged()
+        tabAdapter.notifyDataSetChanged()
     }
 
-    override fun setTitle(month: Int) {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = context.resources.getStringArray(R.array.top_titles)[month - 1]
+    override fun setSubTitle(date: YearMonthDay) {
+        yearMonthText.text = getString(R.string.top_sub_title, date.year, date.month)
     }
 
     override fun setCurrentPosition(position: Int, animate: Boolean) {
@@ -83,11 +86,13 @@ class TopFragment : Fragment(), TopPresenter.TopView {
     }
 
     private fun initializeView() {
+        pagerAdapter = TopPagerAdapter(fragmentManager, dates = emptyList<YearMonthDay>())
         viewPager.apply {
             adapter = pagerAdapter
             offscreenPageLimit = 2
         }
-        tabLayout.setUpWithViewPager(viewPager)
+        tabAdapter = TopTabAdapter(viewPager, dates = emptyList<YearMonthDay>())
+        tabLayout.setUpWithAdapter(tabAdapter)
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
