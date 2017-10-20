@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FCFCFC" />
+            <size android:height="@dimen/size_xsmall" />
+            <corners android:bottomLeftRadius="@dimen/space_normal" android:bottomRightRadius="@dimen/space_normal" android:topLeftRadius="@dimen/space_normal" android:topRightRadius="@dimen/space_normal" />
+            <padding android:left="@dimen/space_normal" android:right="@dimen/space_normal" />
+        </shape>
+    </item>
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@android:color/white" />
             <size android:height="@dimen/size_xsmall" />
-            <corners android:bottomLeftRadius="16dp" android:bottomRightRadius="16dp" android:topLeftRadius="16dp" android:topRightRadius="16dp" />
-            <padding android:left="16dp" android:right="16dp" />
+            <corners android:bottomLeftRadius="@dimen/space_normal" android:bottomRightRadius="@dimen/space_normal" android:topLeftRadius="@dimen/space_normal" android:topRightRadius="@dimen/space_normal" />
+            <padding android:left="@dimen/space_normal" android:right="@dimen/space_normal" />
         </shape>
     </item>
 </selector>
