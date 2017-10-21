@@ -1,4 +1,4 @@
-package io.reyurnible.android.workrise.domain.converter
+package io.reyurnible.android.workrise.domain.repository
 
 import io.reyurnible.android.workrise.domain.model.entity.CheckItem
 import io.reyurnible.android.workrise.domain.model.entity.Form

@@ -5,7 +5,6 @@ import io.reactivex.Single
 import io.realm.RealmList
 import io.realm.Sort
 import io.realm.exceptions.RealmException
-import io.reyurnible.android.workrise.domain.converter.ReportConverter
 import io.reyurnible.android.workrise.domain.model.entity.Report
 import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 import io.reyurnible.android.workrise.domain.model.value.Optional
