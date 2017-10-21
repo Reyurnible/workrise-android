@@ -8,4 +8,6 @@ import io.reyurnible.android.workrise.domain.model.identifier.ReportId
 data class Report(
         val id: ReportId,
         val content: List<Form>
-)
+) {
+    companion object Factory
+}

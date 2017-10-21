@@ -4,6 +4,8 @@ data class FormSetting(
         val title: String,
         val type: FormType
 ) {
+    companion object Factory
+
     enum class FormType {
         Text, CheckList
     }

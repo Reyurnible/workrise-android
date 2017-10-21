@@ -7,6 +7,8 @@ import io.reyurnible.android.workrise.domain.model.identifier.ReportId
  * 日報のフォーム
  */
 sealed class Form(open val id: FormId, open val reportId: ReportId, open val title: String) {
+    companion object Factory
+
     data class Text(
             override val id: FormId,
             override val reportId: ReportId,

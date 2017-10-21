@@ -11,4 +11,6 @@ data class CheckItem(
         val formId: FormId,
         val content: String,
         val checked: Boolean
-)
+) {
+    companion object Factory
+}
